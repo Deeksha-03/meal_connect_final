@@ -1,0 +1,12 @@
+<svg width="194" height="188" viewBox="0 0 194 188" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="105" cy="99" r="68" fill="#55A8C0"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M78 99C78 91.8392 80.8446 84.9716 85.9081 79.9081C90.9716 74.8446 97.8392 72 105 72C112.161 72 119.028 74.8446 124.092 79.9081C129.155 84.9716 132 91.8392 132 99C132 106.161 129.155 113.028 124.092 118.092C119.028 123.155 112.161 126 105 126C97.8392 126 90.9716 123.155 85.9081 118.092C80.8446 113.028 78 106.161 78 99V99ZM103.459 110.556L119.004 91.1232L116.196 88.8768L102.941 105.44L93.552 97.6176L91.248 100.382L103.459 110.56V110.556Z" fill="white"/>
+<circle cx="38" cy="50" r="4" fill="#55A8C0" fill-opacity="0.75"/>
+<circle cx="82.5" cy="8.5" r="8.5" fill="#55A8C0" fill-opacity="0.75"/>
+<circle cx="177.5" cy="158.5" r="8.5" fill="#55A8C0" fill-opacity="0.75"/>
+<circle cx="14" cy="105" r="14" fill="#55A8C0" fill-opacity="0.75"/>
+<circle cx="165.5" cy="21.5" r="16.5" fill="#55A8C0" fill-opacity="0.75"/>
+<circle cx="190" cy="95" r="4" fill="#55A8C0" fill-opacity="0.75"/>
+<circle cx="42" cy="155" r="4" fill="#55A8C0" fill-opacity="0.75"/>
+<circle cx="115" cy="184" r="4" fill="#1A8FE3" fill-opacity="0.5"/>
+</svg>
