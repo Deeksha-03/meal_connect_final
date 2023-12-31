@@ -55,7 +55,7 @@ class AppRoutes {
 
   static const String successfulOneScreen = '/successful_one_screen';
 
-  static const String profileOtherOneScreen = '/profile_other_one_screen';
+  static const String profileOtherOneScreen = '/profile_other_one_screen';  //ngo-side profile
 
   static const String ngoOrderListPage = '/ngo_order_list_page';
 
