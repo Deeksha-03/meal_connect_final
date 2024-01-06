@@ -9,7 +9,6 @@ import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 
 
-//cheking - 1
 // ignore_for_file: must_be_immutable
 class NgoScreen extends StatelessWidget {
   NgoScreen({Key? key}) : super(key: key);

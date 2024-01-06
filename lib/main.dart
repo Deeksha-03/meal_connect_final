@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           theme: theme,
           title: 'meal_connect',
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.startPageOneScreen,//change here startPageOneScreen
+          initialRoute: AppRoutes.SuccessfulTwoScreen,//change here startPageOneScreen
           routes: AppRoutes.routes,
         );
       },
