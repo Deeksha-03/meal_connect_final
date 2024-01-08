@@ -164,6 +164,7 @@ class ProfileFollowedScreen extends StatelessWidget {
                   colorClickableText: theme.colorScheme.primary,
                   trimMode: TrimMode.Line,
                   trimCollapsedText: "Read more...",
+                  style: TextStyle(color: Colors.black),
                   moreStyle:
                       CustomTextStyles.bodyLargePlusJakartaSansBluegray900,
                   lessStyle:

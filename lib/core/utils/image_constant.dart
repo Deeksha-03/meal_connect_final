@@ -127,6 +127,8 @@ class ImageConstant {
 
   static String imgArrowDown = '$imagePath/img_arrow_down.svg';
 
+  static String imgNgoLogo = '$imagePath/ngo_logo.png';
+
   static String imgCalendar = '$imagePath/img_calendar.svg';
 
   static String imageNotFound = 'assets/images/image_not_found.png';

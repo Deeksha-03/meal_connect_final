@@ -44,7 +44,7 @@ class NgoScreen extends StatelessWidget {
             ])),
         actions: [
           AppbarTrailingIconbutton(
-              imagePath: ImageConstant.imgMoreVertical,
+              imagePath: ImageConstant.imgNgoLogo,
               margin: EdgeInsets.fromLTRB(38.h, 38.v, 38.h, 22.v))
         ],
         styleType: Style.bgFill);
