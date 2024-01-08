@@ -1,44 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 
-// ignore: must_be_immutable
 class ThirtyfourItemWidget extends StatelessWidget {
-  const ThirtyfourItemWidget({Key? key})
-      : super(
-          key: key,
-        );
+  const ThirtyfourItemWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RawChip(
       padding: EdgeInsets.symmetric(
-        horizontal: 21.h,
-        vertical: 7.v,
+        horizontal: 21.0, // Assuming these values are in logical pixels
+        vertical: 7.0,
       ),
       showCheckmark: false,
       labelPadding: EdgeInsets.zero,
       label: Text(
         "5 Kg",
         style: TextStyle(
-          color: appTheme.gray500,
-          fontSize: 11.459915161132812.fSize,
+          color: Colors.grey[500], // Using Colors.grey as an example
+          fontSize: 11.0, // Assuming font size as 11 logical pixels
           fontFamily: 'Plus Jakarta Sans',
           fontWeight: FontWeight.w700,
         ),
       ),
       selected: false,
-      backgroundColor: theme.colorScheme.onPrimaryContainer,
-      selectedColor: theme.colorScheme.onPrimaryContainer,
+      backgroundColor: Colors.white, // Using white as an example
+      selectedColor: Colors.white, // Using white as an example
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: appTheme.blueGray100,
-          width: 1.h,
+          color: Colors.blueGrey[100]!, // Using Colors.blueGrey as an example
+          width: 1.0,
         ),
-        borderRadius: BorderRadius.circular(
-          4.h,
-        ),
+        borderRadius: BorderRadius.circular(4.0),
       ),
-      onSelected: (value) {},
+      onSelected: (value) {
+        // Callback when the chip is selected
+      },
     );
   }
 }

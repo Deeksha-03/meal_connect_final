@@ -27,7 +27,7 @@ class UserprofileItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CustomImageView(
-              imagePath: ImageConstant.imgContrast,
+              imagePath: ImageConstant.imgNgoLogo,
               height: 67.v,
               width: 70.h,
               margin: EdgeInsets.only(top: 1.v),
