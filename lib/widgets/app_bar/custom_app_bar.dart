@@ -5,6 +5,7 @@ import 'package:meal_connect/core/app_export.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({
     Key? key,
+    this.width,
     this.height,
     this.styleType,
     this.leadingWidth,
@@ -15,6 +16,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }) : super(
           key: key,
         );
+
+  final double? width;
 
   final double? height;
 

@@ -118,9 +118,10 @@ class HomePageExtendedScreen extends StatelessWidget {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       height: 94.v,
+      width: 200.h,
       title: AppbarSubtitleOne(
         text: "MEAL\nCONNECT",
-        margin: EdgeInsets.only(left: 38.h),
+        margin: EdgeInsets.only(left: 48.h),
       ),
     );
   }
