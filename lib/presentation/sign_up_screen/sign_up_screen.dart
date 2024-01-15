@@ -177,6 +177,12 @@ class SignUpScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                           ),
+                          GestureDetector(
+                              onTap: () {
+                                onTapTxtSignIn(context);
+                              },
+                              child: Text(".",
+                                  style: CustomTextStyles.titleMediumPrimaryBold)),
                         ],
                       ),
                     ),
