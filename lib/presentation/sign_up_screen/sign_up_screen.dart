@@ -128,6 +128,12 @@ class SignUpScreen extends StatelessWidget {
                           SizedBox(height: 32.v),
                           _buildPassword1(context),
                           SizedBox(height: 56.v),
+                          GestureDetector(
+                              onTap: () {
+                                onTapTxtSignup(context);
+                              },
+                              child: Text(".",
+                                  style: CustomTextStyles.titleMediumPrimaryBold)),
                           CustomElevatedButton(
                             text: "Sign Up",
                             margin: EdgeInsets.only(
@@ -437,7 +443,7 @@ class SignUpScreen extends StatelessWidget {
                 height: 28.adaptSize,
                 width: 28.adaptSize,
               ),
-            ),
+             ),
             suffixConstraints: BoxConstraints(
               maxHeight: 52.v,
             ),
@@ -451,5 +457,11 @@ class SignUpScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+  onTapTxtSignup(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.selectLocationScreen);
+  }
+  onTapTxtSignIn(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.signInDisabledScreen);
   }
 }

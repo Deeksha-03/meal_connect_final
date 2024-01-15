@@ -37,6 +37,12 @@ class SelectLocationSelectedScreen extends StatelessWidget {
                 flex: 65,
               ),
               SizedBox(height: 6.v),
+              GestureDetector(
+                  onTap: () {
+                    onTapTxtContinue(context);
+                  },
+                  child: Text(".",
+                      style: CustomTextStyles.titleMediumPrimaryBold)),
               CustomElevatedButton(
                 text: "Continue",
                 margin: EdgeInsets.symmetric(horizontal: 22.h),
@@ -173,5 +179,8 @@ class SelectLocationSelectedScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+  onTapTxtContinue(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
   }
 }

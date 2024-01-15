@@ -59,4 +59,8 @@ class StartupPageScreen extends StatelessWidget {
       ),
     );
   }
+
+  onTapNext(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.startPageTwoScreen);
+  }
 }
