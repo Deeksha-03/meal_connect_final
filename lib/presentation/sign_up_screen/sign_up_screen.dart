@@ -129,12 +129,12 @@ class SignUpScreen extends StatelessWidget {
                           _buildPassword1(context),
                           SizedBox(height: 56.v),
                           CustomElevatedButton(
-                            text: "Sign Up",
-                            margin: EdgeInsets.only(
-                              left: 13.h,
-                              right: 19.h,
-                            ),
-                          ),
+                              text: "Sign up ",
+                              margin: EdgeInsets.only(left: 16.h, right: 12.h),
+                              buttonTextStyle: theme.textTheme.titleLarge!,
+                              onPressed: () {
+                                onTapTxtSignUp(context);
+                              }),
                           SizedBox(height: 29.v),
                           Text(
                             "Or continue with",
@@ -451,5 +451,8 @@ class SignUpScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+  onTapTxtSignUp(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.signInDisabledScreen);
   }
 }
