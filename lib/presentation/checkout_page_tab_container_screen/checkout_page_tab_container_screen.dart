@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/presentation/checkout_page_two_page/checkout_page_two_page.dart';
 import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
@@ -117,9 +118,8 @@ class CheckoutPageTabContainerScreenState
                                       child: Stack(
                                         alignment: Alignment.bottomCenter,
                                         children: [
-                                          CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgRectangle6,
+                                          SvgPicture.asset(
+                                            'assets/imgRectangle6.svg', // Replace with your SVG file path
                                             height: 32.v,
                                             width: 129.h,
                                             alignment: Alignment.center,
