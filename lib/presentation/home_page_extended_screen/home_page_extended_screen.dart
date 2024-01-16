@@ -10,6 +10,11 @@ import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 import 'package:meal_connect/widgets/custom_icon_button.dart';
 import 'package:meal_connect/widgets/custom_outlined_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:meal_connect/presentation/home_page_extended_screen/home_page_extended_screen.dart';
+import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
+import 'package:meal_connect/presentation/profile_user_screen/profile_user_screen.dart';
+
+
 
 class HomePageExtendedScreen extends StatelessWidget {
   HomePageExtendedScreen({Key? key})
@@ -634,15 +639,7 @@ class HomePageExtendedScreen extends StatelessWidget {
     );
   }
 
-  /// Section Widget
-  Widget _buildBottomBar(BuildContext context) {
-    return CustomBottomBar(
-      onChanged: (BottomBarEnum type) {
-        Navigator.pushNamed(
-            navigatorKey.currentContext!, getCurrentRoute(type));
-      },
-    );
-  }
+
 
   /// Common widget
   Widget _buildDonatorsCounter(
@@ -788,23 +785,32 @@ class HomePageExtendedScreen extends StatelessWidget {
     );
   }
 
+  /// Section Widget
+  Widget _buildBottomBar(BuildContext context) {
+    return CustomBottomBar(
+      onChanged: (BottomBarEnum type) {
+        Navigator.pushNamed(
+            context, getCurrentRoute(type));
+      },
+    );
+  }
+
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.homePageExtendedOneScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.ngoOrderListPage;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationsNoNotiScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileUserScreen;
       default:
         return "/";
     }
   }
 
-  ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.ngoOrderListPage:
