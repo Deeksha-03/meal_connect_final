@@ -471,13 +471,13 @@ class NgoOrderListPage extends StatelessWidget {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.homePageExtendedScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.ngoOrderListPage;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationsNoNotiScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileUserScreen;
       default:
         return "/";
     }

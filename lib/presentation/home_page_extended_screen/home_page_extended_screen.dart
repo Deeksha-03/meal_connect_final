@@ -799,7 +799,7 @@ class HomePageExtendedScreen extends StatelessWidget {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.homePageExtendedOneScreen;
+        return AppRoutes.homePageExtendedScreen;
       case BottomBarEnum.Ngo:
         return AppRoutes.ngoOrderListPage;
       case BottomBarEnum.Notification:

@@ -38,6 +38,7 @@ import 'package:meal_connect/presentation/checkout_page_tab_container_screen/che
 import 'package:meal_connect/presentation/successful_two_screen/successful_two_screen.dart';
 import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
 import 'package:meal_connect/presentation/app_navigation_screen/app_navigation_screen.dart';
+import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
 
 class AppRoutes {
   static const String startPageOneScreen = '/start_page_one_screen';
@@ -178,6 +179,7 @@ class AppRoutes {
         CheckoutPageTabContainerScreen(),
     successfulTwoScreen: (context) => SuccessfulTwoScreen(),
     notificationsNoNotiScreen: (context) => NotificationsNoNotiScreen(),
-    appNavigationScreen: (context) => AppNavigationScreen()
+    appNavigationScreen: (context) => AppNavigationScreen(),
+    ngoOrderListPage: (context) => NgoOrderListPage()
   };
 }
