@@ -5,8 +5,6 @@ import 'package:meal_connect/widgets/app_bar/appbar_title_image.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 
 // ignore_for_file: must_be_immutable
 class SignInDisabledScreen extends StatelessWidget {
@@ -31,59 +29,49 @@ class SignInDisabledScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 34.h),
                     child: Column(children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 124.v,
-                            width: 127.h,
-                            child: Stack(
-                              alignment: Alignment.bottomLeft,
-                              children: [
-                                CustomImageView(
-                                    imagePath: ImageConstant.imgNavNgo,
-                                    height: 100.v,
-                                    width: 105.h,
-                                    alignment: Alignment.bottomRight,
-                                    margin: EdgeInsets.only(
-                                        right: 7.h, bottom: 6.v)),
-                                Container(
-                                  child: SvgPicture.asset(
-                                    ImageConstant.imgVectorBlue60019x19,
-                                    height: 19.adaptSize,
-                                    width: 19.adaptSize,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                height: 124.v,
+                                width: 127.h,
+                                child: Stack(
                                     alignment: Alignment.bottomLeft,
-                                  ),
-                                ),
-                                Container(
-                                  child: SvgPicture.asset(
-                                    ImageConstant.imgVectorBlue60016x22,
-                                    height: 15.v,
-                                    width: 18.h,
-                                    alignment: Alignment.topRight,
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 5.h, top: 10.v),
-                                  child: SvgPicture.asset(
-                                    ImageConstant.imgVectorBlue60013x14,
-                                    height: 13.v,
-                                    width: 14.h,
-                                    alignment: Alignment.topLeft,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 110.v, bottom: 5.v),
-                            child: SvgPicture.asset(
-                              ImageConstant.imgVectorBlue60019x19,
-                              height: 8.adaptSize,
-                              width: 8.adaptSize,
-                            ),
-                          ),
-                        ],
-                      ),
+                                    children: [
+                                      CustomImageView(
+                                          imagePath: ImageConstant.imgNavNgo,
+                                          height: 100.v,
+                                          width: 105.h,
+                                          alignment: Alignment.bottomRight,
+                                          margin: EdgeInsets.only(
+                                              right: 7.h, bottom: 6.v)),
+                                      CustomImageView(
+                                          imagePath: ImageConstant
+                                              .imgVectorBlue60019x19,
+                                          height: 19.adaptSize,
+                                          width: 19.adaptSize,
+                                          alignment: Alignment.bottomLeft),
+                                      CustomImageView(
+                                          imagePath: ImageConstant
+                                              .imgVectorBlue60016x22,
+                                          height: 15.v,
+                                          width: 18.h,
+                                          alignment: Alignment.topRight),
+                                      CustomImageView(
+                                          imagePath: ImageConstant
+                                              .imgVectorBlue60013x14,
+                                          height: 13.v,
+                                          width: 14.h,
+                                          alignment: Alignment.topLeft,
+                                          margin: EdgeInsets.only(
+                                              left: 5.h, top: 10.v))
+                                    ])),
+                            CustomImageView(
+                                imagePath: ImageConstant.imgVectorBlue60019x19,
+                                height: 8.adaptSize,
+                                width: 8.adaptSize,
+                                margin:
+                                EdgeInsets.only(top: 110.v, bottom: 5.v))
+                          ]),
                       SizedBox(height: 9.v),
                       CustomImageView(
                           imagePath: ImageConstant.imgVectorBlue60019x19,
@@ -104,7 +92,7 @@ class SignInDisabledScreen extends StatelessWidget {
                                         style: theme.textTheme.titleSmall)),
                                 Padding(
                                     padding:
-                                        EdgeInsets.only(left: 3.h, bottom: 4.v),
+                                    EdgeInsets.only(left: 3.h, bottom: 4.v),
                                     child: Text("*",
                                         style: theme.textTheme.bodyMedium))
                               ]))),
@@ -170,7 +158,7 @@ class SignInDisabledScreen extends StatelessWidget {
             }),
         centerTitle: true,
         title:
-            AppbarTitleImage(imagePath: ImageConstant.imgVectorBlue60013x14));
+        AppbarTitleImage(imagePath: ImageConstant.imgVectorBlue60013x14));
   }
 
   /// Section Widget
