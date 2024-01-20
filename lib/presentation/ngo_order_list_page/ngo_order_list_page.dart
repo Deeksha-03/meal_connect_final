@@ -1,11 +1,10 @@
-import '../ngo_order_list_page/widgets/donationlist_item_widget.dart';
-import '../ngo_order_list_page/widgets/donationsuccess_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_subtitle_three.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
+import 'package:meal_connect/widgets/custom_outlined_button.dart';
 
 // ignore_for_file: must_be_immutable
 class NgoOrderListPage extends StatelessWidget {
@@ -24,7 +23,7 @@ class NgoOrderListPage extends StatelessWidget {
         body: SizedBox(
           width: SizeUtils.width,
           child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: 28.v,bottom: 28.v),
+            padding: EdgeInsets.symmetric(vertical: 28.v),
             child: Column(
               children: [
                 Align(
@@ -56,8 +55,6 @@ class NgoOrderListPage extends StatelessWidget {
                 _buildDonationList(context),
                 SizedBox(height: 70.v),
                 _buildDateColumn(context),
-                // SizedBox(height: 39.v),
-                // _buildMainStack(context),
               ],
             ),
           ),
@@ -88,33 +85,20 @@ class NgoOrderListPage extends StatelessWidget {
       ],
     );
   }
-
   /// Section Widget
+
   Widget _buildDonationList(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: 38.h,
-        right: 26.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 30.h),
       child: ListView.separated(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        separatorBuilder: (
-          context,
-          index,
-        ) {
-          return SizedBox(
-            height: 41.v,
-          );
-        },
+        separatorBuilder: (context, index) => SizedBox(height: 41.v),
         itemCount: 2,
-        itemBuilder: (context, index) {
-          return DonationlistItemWidget();
-        },
+        itemBuilder: (context, index) => _donationListItem(context),
       ),
     );
   }
-
 
 ///section widget
   Widget _buildDateItem(BuildContext context, String dateText, int numRepeats) {
@@ -123,7 +107,7 @@ class NgoOrderListPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 5.h),
+            padding: EdgeInsets.symmetric(horizontal: 4.h),
             child: _buildContrast(
               context,
               donationSuccessfulText: "Donation Successful",
@@ -174,6 +158,54 @@ class NgoOrderListPage extends StatelessWidget {
         _buildDateItem(context, "6th November, 2022", 2),// Prints Padding with _buildContrast 2 times
         // Add more date items as needed with the specified number of repeats
       ],
+    );
+  }
+
+  Widget _donationListItem(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 2.h),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomImageView(
+                imagePath: ImageConstant.imgMaskGroup,
+                height: 46.adaptSize,
+                width: 46.adaptSize,
+              ),
+              Container(
+                width: 168.h,
+                margin: EdgeInsets.only(left: 17.h, top: 7.v, bottom: 7.v),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Anonymous",
+                        style: CustomTextStyles.labelLargeBlack900Bold,
+                      ),
+                      TextSpan(
+                        text: " has requested to donate food",
+                        style: CustomTextStyles.labelLargeBluegray900,
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              CustomOutlinedButton(
+                height: 34.v,
+                width: 120.h,
+                text: "Pending",
+                margin: EdgeInsets.only(left: 12.h, top: 5.v, bottom: 7.v),
+                buttonStyle: CustomButtonStyles.outlinePrimary,
+              ),
+            ],
+          ),
+          SizedBox(height: 41.v),
+        ],
+      ),
     );
   }
 
@@ -256,165 +288,165 @@ class NgoOrderListPage extends StatelessWidget {
   // }
 
   /// Section Widget
-  Widget _buildMainStack(BuildContext context) {
-    int numberOfDonations = 4; // Replace this with the actual count of your DonationsuccessItemWidget
-
-    // Calculate the total height needed for the DonationsuccessItemWidget
-    double totalItemHeight = numberOfDonations * 50.0;
-
-    return SizedBox(
-      // height:totalItemHeight + 200.v,
-      height:400.v,// height: 368.v, //change height here to fix the donation successful list
-      width: double.maxFinite,
-      child: Stack(
-        alignment: Alignment.bottomLeft,
-        children: [
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 47.h,
-                bottom: 134.v,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 10.adaptSize,
-                        width: 10.adaptSize,
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary.withOpacity(0.75),
-                          borderRadius: BorderRadius.circular(
-                            5.h,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 2.adaptSize,
-                        width: 2.adaptSize,
-                        margin: EdgeInsets.only(
-                          left: 57.h,
-                          bottom: 7.v,
-                        ),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary.withOpacity(0.75),
-                          borderRadius: BorderRadius.circular(
-                            1.h,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 11.v),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 2.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            height: 2.adaptSize,
-                            width: 2.adaptSize,
-                            margin: EdgeInsets.only(bottom: 2.v),
-                            decoration: BoxDecoration(
-                              color:
-                                  theme.colorScheme.primary.withOpacity(0.75),
-                              borderRadius: BorderRadius.circular(
-                                1.h,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 6.adaptSize,
-                            width: 6.adaptSize,
-                            margin: EdgeInsets.only(left: 44.h),
-                            decoration: BoxDecoration(
-                              color:
-                                  theme.colorScheme.primary.withOpacity(0.75),
-                              borderRadius: BorderRadius.circular(
-                                3.h,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              height: 2.adaptSize,
-              width: 2.adaptSize,
-              margin: EdgeInsets.only(
-                left: 87.h,
-                bottom: 127.v,
-              ),
-              decoration: BoxDecoration(
-                color: appTheme.blue600.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(
-                  1.h,
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 29.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "1st November, 2022",
-                    style: CustomTextStyles.titleSmallGray500_1,
-                  ),
-                  SizedBox(height: 260.v),
-                  _buildContrast(
-                    context,
-                    donationSuccessfulText: "Donation Successful",
-                    timeZoneText:
-                        "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(26.h, 46.v, 32.h, 134.v),
-              child: ListView.separated(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                separatorBuilder: (
-                  context,
-                  index,
-                ) {
-                  return SizedBox(
-                    height: 37.v,
-                  );
-                },
-                itemCount: 4,  // this count determines the number of successful donation list
-                itemBuilder: (context, index) {
-                  return DonationsuccessItemWidget();
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildMainStack(BuildContext context) {
+  //   int numberOfDonations = 4; // Replace this with the actual count of your DonationsuccessItemWidget
+  //
+  //   // Calculate the total height needed for the DonationsuccessItemWidget
+  //   double totalItemHeight = numberOfDonations * 50.0;
+  //
+  //   return SizedBox(
+  //     // height:totalItemHeight + 200.v,
+  //     height:400.v,// height: 368.v, //change height here to fix the donation successful list
+  //     width: double.maxFinite,
+  //     child: Stack(
+  //       alignment: Alignment.bottomLeft,
+  //       children: [
+  //         Align(
+  //           alignment: Alignment.bottomLeft,
+  //           child: Padding(
+  //             padding: EdgeInsets.only(
+  //               left: 47.h,
+  //               bottom: 134.v,
+  //             ),
+  //             child: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Container(
+  //                       height: 10.adaptSize,
+  //                       width: 10.adaptSize,
+  //                       decoration: BoxDecoration(
+  //                         color: theme.colorScheme.primary.withOpacity(0.75),
+  //                         borderRadius: BorderRadius.circular(
+  //                           5.h,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     Container(
+  //                       height: 2.adaptSize,
+  //                       width: 2.adaptSize,
+  //                       margin: EdgeInsets.only(
+  //                         left: 57.h,
+  //                         bottom: 7.v,
+  //                       ),
+  //                       decoration: BoxDecoration(
+  //                         color: theme.colorScheme.primary.withOpacity(0.75),
+  //                         borderRadius: BorderRadius.circular(
+  //                           1.h,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 SizedBox(height: 11.v),
+  //                 Align(
+  //                   alignment: Alignment.centerRight,
+  //                   child: Padding(
+  //                     padding: EdgeInsets.only(right: 2.h),
+  //                     child: Row(
+  //                       mainAxisAlignment: MainAxisAlignment.end,
+  //                       children: [
+  //                         Container(
+  //                           height: 2.adaptSize,
+  //                           width: 2.adaptSize,
+  //                           margin: EdgeInsets.only(bottom: 2.v),
+  //                           decoration: BoxDecoration(
+  //                             color:
+  //                                 theme.colorScheme.primary.withOpacity(0.75),
+  //                             borderRadius: BorderRadius.circular(
+  //                               1.h,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                         Container(
+  //                           height: 6.adaptSize,
+  //                           width: 6.adaptSize,
+  //                           margin: EdgeInsets.only(left: 44.h),
+  //                           decoration: BoxDecoration(
+  //                             color:
+  //                                 theme.colorScheme.primary.withOpacity(0.75),
+  //                             borderRadius: BorderRadius.circular(
+  //                               3.h,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         Align(
+  //           alignment: Alignment.bottomLeft,
+  //           child: Container(
+  //             height: 2.adaptSize,
+  //             width: 2.adaptSize,
+  //             margin: EdgeInsets.only(
+  //               left: 87.h,
+  //               bottom: 127.v,
+  //             ),
+  //             decoration: BoxDecoration(
+  //               color: appTheme.blue600.withOpacity(0.5),
+  //               borderRadius: BorderRadius.circular(
+  //                 1.h,
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Align(
+  //           alignment: Alignment.center,
+  //           child: Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 29.h),
+  //             child: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   "1st November, 2022",
+  //                   style: CustomTextStyles.titleSmallGray500_1,
+  //                 ),
+  //                 SizedBox(height: 260.v),
+  //                 _buildContrast(
+  //                   context,
+  //                   donationSuccessfulText: "Donation Successful",
+  //                   timeZoneText:
+  //                       "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         Align(
+  //           alignment: Alignment.topCenter,
+  //           child: Padding(
+  //             padding: EdgeInsets.fromLTRB(26.h, 46.v, 32.h, 134.v),
+  //             child: ListView.separated(
+  //               physics: NeverScrollableScrollPhysics(),
+  //               shrinkWrap: true,
+  //               separatorBuilder: (
+  //                 context,
+  //                 index,
+  //               ) {
+  //                 return SizedBox(
+  //                   height: 37.v,
+  //                 );
+  //               },
+  //               itemCount: 4,  // this count determines the number of successful donation list
+  //               itemBuilder: (context, index) {
+  //                 return DonationsuccessItemWidget();
+  //               },
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /// Common widget
   Widget _buildContrast(

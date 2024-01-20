@@ -38,6 +38,7 @@ import 'package:meal_connect/presentation/checkout_page_tab_container_screen/che
 import 'package:meal_connect/presentation/successful_two_screen/successful_two_screen.dart';
 import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
 import 'package:meal_connect/presentation/app_navigation_screen/app_navigation_screen.dart';
+import 'package:meal_connect/presentation/ngo_order_list_screen/ngo_order_list_screen.dart';
 
 class AppRoutes {
   static const String startPageOneScreen = '/start_page_one_screen';
@@ -58,6 +59,8 @@ class AppRoutes {
   static const String profileOtherOneScreen = '/profile_other_one_screen';  //ngo-side profile
 
   static const String ngoOrderListPage = '/ngo_order_list_page';
+
+  static const String ngoOrderListScreen = '/ngo_order_list_screen';
 
   static const String ngoOrderListContainerScreen =
       '/ngo_order_list_container_screen';
@@ -147,6 +150,7 @@ class AppRoutes {
     successfulOneScreen: (context) => SuccessfulOneScreen(),
     profileOtherOneScreen: (context) => ProfileOtherOneScreen(),
     ngoOrderListContainerScreen: (context) => NgoOrderListContainerScreen(),
+    ngoOrderListScreen: (context)=> NgoOrderListScreen(),
     welcomePageScreen: (context) => WelcomePageScreen(),
     welcomePageOneScreen: (context) => WelcomePageOneScreen(),
     signUpScreen: (context) => SignUpScreen(),
