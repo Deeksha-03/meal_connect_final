@@ -130,7 +130,7 @@ class CheckoutPageTabContainerScreenState
                                               padding:
                                                   EdgeInsets.only(bottom: 6.v),
                                               child: Text(
-                                                "Kg",
+                                                "Number of meals",
                                               ),
                                             ),
                                           ),
@@ -140,7 +140,7 @@ class CheckoutPageTabContainerScreenState
                                   ),
                                   Tab(
                                     child: Text(
-                                      "Number of meals",
+                                      "Kg",
                                     ),
                                   ),
                                 ],
