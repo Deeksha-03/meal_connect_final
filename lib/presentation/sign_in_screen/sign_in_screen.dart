@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_leading_iconbutton_one.dart';
@@ -6,14 +7,16 @@ import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
 
-// ignore_for_file: must_be_immutable
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   SignInScreen({Key? key}) : super(key: key);
 
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
   TextEditingController johnController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
-
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -70,7 +73,7 @@ class SignInScreen extends StatelessWidget {
                                 height: 8.adaptSize,
                                 width: 8.adaptSize,
                                 margin:
-                                    EdgeInsets.only(top: 110.v, bottom: 5.v))
+                                EdgeInsets.only(top: 110.v, bottom: 5.v))
                           ]),
                       SizedBox(height: 9.v),
                       CustomImageView(
@@ -92,7 +95,7 @@ class SignInScreen extends StatelessWidget {
                                         style: theme.textTheme.titleSmall)),
                                 Padding(
                                     padding:
-                                        EdgeInsets.only(left: 3.h, bottom: 4.v),
+                                    EdgeInsets.only(left: 3.h, bottom: 4.v),
                                     child: Text("*",
                                         style: theme.textTheme.bodyMedium))
                               ]))),
@@ -100,7 +103,7 @@ class SignInScreen extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.only(left: 12.h),
                           child: CustomTextFormField(
-                              controller: johnController, hintText: "John")),
+                              controller: johnController)),
                       SizedBox(height: 48.v),
                       _buildPasswordSection(context),
                       SizedBox(height: 81.v),
@@ -126,7 +129,7 @@ class SignInScreen extends StatelessWidget {
                           text: "Sign In",
                           margin: EdgeInsets.only(left: 27.h, right: 15.h),
                           onPressed: () {
-                            onTapSignIn(context);
+                            _handleSignIn(context);
                           }),
                       SizedBox(height: 57.v),
                       GestureDetector(
@@ -168,7 +171,7 @@ class SignInScreen extends StatelessWidget {
             }),
         centerTitle: true,
         title:
-            AppbarTitleImage(imagePath: ImageConstant.imgVectorBlue60013x14));
+        AppbarTitleImage(imagePath: ImageConstant.imgVectorBlue60013x14));
   }
 
   /// Section Widget
@@ -189,7 +192,6 @@ class SignInScreen extends StatelessWidget {
           SizedBox(height: 9.v),
           CustomTextFormField(
               controller: passwordController,
-              hintText: "************",
               textInputAction: TextInputAction.done,
               textInputType: TextInputType.visiblePassword,
               suffix: Container(
@@ -201,8 +203,28 @@ class SignInScreen extends StatelessWidget {
               suffixConstraints: BoxConstraints(maxHeight: 52.v),
               obscureText: true,
               contentPadding:
-                  EdgeInsets.only(left: 23.h, top: 17.v, bottom: 17.v))
+              EdgeInsets.only(left: 23.h, top: 17.v, bottom: 17.v))
         ]));
+  }
+
+  void _handleSignIn(BuildContext context) async {
+    if (_formKey.currentState?.validate() ?? false) {
+      try {
+        // Sign in with Firebase Auth
+        UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: johnController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+
+        // Handle successful sign-in, e.g., navigate to welcome screen
+        Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
+      } on FirebaseAuthException catch (e) {
+        // Handle errors, e.g., display an error message
+        print("Failed to sign in: $e");
+        // You can display an error message to the user here.
+      }
+    }
   }
 
   /// Navigates to the signInDisabledScreen when the action is triggered.
