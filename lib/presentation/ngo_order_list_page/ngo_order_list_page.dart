@@ -56,8 +56,8 @@ class NgoOrderListPage extends StatelessWidget {
                 _buildDonationList(context),
                 SizedBox(height: 70.v),
                 _buildDateColumn(context),
-                SizedBox(height: 39.v),
-                _buildMainStack(context),
+                // SizedBox(height: 39.v),
+                // _buildMainStack(context),
               ],
             ),
           ),
@@ -115,44 +115,145 @@ class NgoOrderListPage extends StatelessWidget {
     );
   }
 
-  /// Section Widget
-  Widget _buildDateColumn(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 26.h),
-      child: Column(
+
+///section widget
+  Widget _buildDateItem(BuildContext context, String dateText, int numRepeats) {
+    List<Widget> contrastWidgets = List.generate(numRepeats, (_) {
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 5.h),
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: " ",
-                  ),
-                  TextSpan(
-                    text: "5th November, 2022",
-                    style: CustomTextStyles.titleSmallGray500,
-                  ),
-                ],
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          SizedBox(height: 36.v),
           Padding(
             padding: EdgeInsets.only(left: 5.h),
             child: _buildContrast(
               context,
               donationSuccessfulText: "Donation Successful",
-              timeZoneText:
-                  "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+              timeZoneText: "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
             ),
           ),
+          SizedBox(height: 36.v), // Space between repeated _buildContrast
         ],
-      ),
+      );
+    });
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // SizedBox(height: 36.v),
+        Padding(
+          padding: EdgeInsets.only(left: 5.h),
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: " ",
+                ),
+                TextSpan(
+                  text: dateText,
+                  style: CustomTextStyles.titleSmallGray500,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+        SizedBox(height: 36.v),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: contrastWidgets,
+        ),
+      ],
     );
   }
+
+  Widget _buildDateColumn(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildDateItem(context, "4th November, 2022", 1), // Prints Padding with _buildContrast 3 times
+        _buildDateItem(context, "5th November, 2022", 1),
+        _buildDateItem(context, "6th November, 2022", 2),// Prints Padding with _buildContrast 2 times
+        // Add more date items as needed with the specified number of repeats
+      ],
+    );
+  }
+
+
+  /// Section Widget
+  // Widget _buildDateColumn(BuildContext context) {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 26.h),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Padding(
+  //           padding: EdgeInsets.only(left: 5.h),
+  //           child: RichText(
+  //             text: TextSpan(
+  //               children: [
+  //                 TextSpan(
+  //                   text: " ",
+  //                 ),
+  //                 TextSpan(
+  //                   text: "5th November, 2022",
+  //                   style: CustomTextStyles.titleSmallGray500,
+  //                 ),
+  //               ],
+  //             ),
+  //             textAlign: TextAlign.left,
+  //           ),
+  //         ),
+  //         SizedBox(height: 36.v),
+  //         Padding(
+  //           padding: EdgeInsets.only(left: 5.h),
+  //           child: _buildContrast(
+  //             context,
+  //             donationSuccessfulText: "Donation Successful",
+  //             timeZoneText:
+  //                 "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+  //           ),
+  //         ),
+  //         SizedBox(height:36.v),
+  //         Padding(
+  //           padding: EdgeInsets.only(left: 5.h),
+  //           child: RichText(
+  //             text: TextSpan(
+  //               children: [
+  //                 TextSpan(
+  //                   text: " ",
+  //                 ),
+  //                 TextSpan(
+  //                   text: "4th November, 2022",
+  //                   style: CustomTextStyles.titleSmallGray500,
+  //                 ),
+  //               ],
+  //             ),
+  //             textAlign: TextAlign.left,
+  //           ),
+  //         ),
+  //         SizedBox(height: 36.v),
+  //         Padding(
+  //           padding: EdgeInsets.only(left: 5.h),
+  //           child: _buildContrast(
+  //             context,
+  //             donationSuccessfulText: "Donation Successful",
+  //             timeZoneText:
+  //             "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+  //           ),
+  //         ),
+  //         SizedBox(height: 36.v),
+  //         Padding(
+  //           padding: EdgeInsets.only(left: 5.h),
+  //           child: _buildContrast(
+  //             context,
+  //             donationSuccessfulText: "Donation Successful",
+  //             timeZoneText:
+  //             "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /// Section Widget
   Widget _buildMainStack(BuildContext context) {
@@ -330,7 +431,7 @@ class NgoOrderListPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           CustomImageView(
-            imagePath: ImageConstant.imgContrast,
+            imagePath: ImageConstant.imgNgoLogo,
             height: 67.v,
             width: 70.h,
             margin: EdgeInsets.only(top: 1.v),
