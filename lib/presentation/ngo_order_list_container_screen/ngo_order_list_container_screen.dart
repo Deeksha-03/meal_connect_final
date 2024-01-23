@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
-import 'package:meal_connect/presentation/profile_other_one_screen/profile_other_one_screen.dart';
 import 'package:meal_connect/presentation/profile_other_screen/profile_other_screen.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 

@@ -2,7 +2,6 @@ import '../ngo_order_list_page/widgets/donationlist_item_widget.dart';
 import '../ngo_order_list_page/widgets/donationsuccess_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
-import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_subtitle_three.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
@@ -25,7 +24,7 @@ class NgoOrderListPage extends StatelessWidget {
         body: SizedBox(
           width: SizeUtils.width,
           child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: 28.v),
+            padding: EdgeInsets.only(top: 28.v,bottom: 28.v),
             child: Column(
               children: [
                 Align(
@@ -57,7 +56,7 @@ class NgoOrderListPage extends StatelessWidget {
                 _buildDonationList(context),
                 SizedBox(height: 70.v),
                 _buildDateColumn(context),
-                SizedBox(height: 38.v),
+                SizedBox(height: 39.v),
                 _buildMainStack(context),
               ],
             ),
@@ -157,8 +156,14 @@ class NgoOrderListPage extends StatelessWidget {
 
   /// Section Widget
   Widget _buildMainStack(BuildContext context) {
+    int numberOfDonations = 4; // Replace this with the actual count of your DonationsuccessItemWidget
+
+    // Calculate the total height needed for the DonationsuccessItemWidget
+    double totalItemHeight = numberOfDonations * 50.0;
+
     return SizedBox(
-      height: 368.v,
+      // height:totalItemHeight + 200.v,
+      height:400.v,// height: 368.v, //change height here to fix the donation successful list
       width: double.maxFinite,
       child: Stack(
         alignment: Alignment.bottomLeft,
@@ -298,7 +303,7 @@ class NgoOrderListPage extends StatelessWidget {
                     height: 37.v,
                   );
                 },
-                itemCount: 4,
+                itemCount: 4,  // this count determines the number of successful donation list
                 itemBuilder: (context, index) {
                   return DonationsuccessItemWidget();
                 },
