@@ -28,7 +28,7 @@ class CheckoutPageTabContainerScreenState
   @override
   void initState() {
     super.initState();
-    tabviewController = TabController(length: 2, vsync: this);
+    tabviewController = TabController(length: 1, vsync: this);
   }
 
   @override
@@ -138,11 +138,7 @@ class CheckoutPageTabContainerScreenState
                                       ),
                                     ),
                                   ),
-                                  Tab(
-                                    child: Text(
-                                      "Kg",
-                                    ),
-                                  ),
+
                                 ],
                               ),
                             ),
@@ -154,7 +150,6 @@ class CheckoutPageTabContainerScreenState
                         child: TabBarView(
                           controller: tabviewController,
                           children: [
-                            CheckoutPageTwoPage(),
                             CheckoutPageTwoPage(),
                           ],
                         ),
