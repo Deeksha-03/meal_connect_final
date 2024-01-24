@@ -15,7 +15,9 @@ class CheckoutPageTwoPage extends StatefulWidget {
 
 // ignore_for_file: must_be_immutable
 class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
-    with AutomaticKeepAliveClientMixin<CheckoutPageTwoPage> {
+    with AutomaticKeepAliveClientMixin<CheckoutPageTwoPage>,TickerProviderStateMixin {
+  late TabController tabviewController;
+  TextEditingController noOfMealsController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -27,6 +29,7 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
   void initState(){
     super.initState();
     dbRef = FirebaseDatabase.instance.ref().child('Order');
+    tabviewController = TabController(length: 1, vsync: this);
   }
 
   @override
@@ -45,7 +48,7 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
                   Padding(
                       padding: EdgeInsets.only(left: 33.h, right: 37.h),
                       child: Column(children: [
-                        SizedBox(height: 73.v),
+                        SizedBox(height: 20.v),
                         _buildDonationFormSection(context)
                       ]))
                 ])))));
@@ -122,6 +125,72 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
         decoration: AppDecoration.outlineBlack9004
             .copyWith(borderRadius: BorderRadiusStyle.roundedBorder8),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Column(
+
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 0.v),
+              Text(
+                "Your Contribution",
+                style:
+                CustomTextStyles.titleMediumBluegray900Bold,
+              ),
+              SizedBox(height: 20.v),
+              Container(
+                height: 32.v,
+                width: 251.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    8.h,
+                  ),
+                  border: Border.all(
+                    color: theme.colorScheme.primary,
+                    width: 1.h,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: tabviewController.index == 0
+                              ? theme.colorScheme.primary
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.h),
+                            bottomLeft: Radius.circular(8.h),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Number of meals",
+                            style: TextStyle(
+                              color: tabviewController.index == 0
+                                  ? Colors.white
+                                  : theme.colorScheme.primary,
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 23.h, vertical: 20.v),
+                child: CustomTextFormField(
+                  controller: noOfMealsController,
+                  hintText: "Number of meals",
+                  textInputType: TextInputType.phone,
+                ),
+              ),
+            ],
+
+          ),
+          SizedBox(height: 30.v),
           Text("Provide Details",
               style: CustomTextStyles.titleMediumBluegray900Bold),
           SizedBox(height: 20.v),
@@ -154,6 +223,7 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
                   CustomTextStyles.labelMediumOnPrimaryContainerBold,
               onPressed: () {
                 Map<String,String> order ={
+                  'meals':  noOfMealsController.text,
                   'date':dateController.text,
                   'time':timeController.text,
                   'phno':phoneNumberController.text,

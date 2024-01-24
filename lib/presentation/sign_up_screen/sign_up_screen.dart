@@ -158,7 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   });
 
                                   // Navigate to the next screen
-                                  Navigator.pushNamed(context, '/select_location_screen');
+                                  Navigator.pushNamed(context,'AppRoutes.userandngowelcomescreen');
                                 } catch (e) {
                                   // Handle registration errors
                                   print("Error: Some error occurred during signing in");
