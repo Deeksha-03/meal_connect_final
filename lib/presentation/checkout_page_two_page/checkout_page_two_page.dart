@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+
 import '../checkout_page_two_page/widgets/eightythree_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
@@ -15,12 +17,17 @@ class CheckoutPageTwoPage extends StatefulWidget {
 class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
     with AutomaticKeepAliveClientMixin<CheckoutPageTwoPage> {
   TextEditingController timeController = TextEditingController();
-
+  TextEditingController dateController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-
   TextEditingController addressController = TextEditingController();
-
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late DatabaseReference dbRef;
+
+  @override
+  void initState(){
+    super.initState();
+    dbRef = FirebaseDatabase.instance.ref().child('Order');
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -55,39 +62,14 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
           Padding(
               padding: EdgeInsets.only(left: 4.h),
               child: Text("Date", style: theme.textTheme.titleSmall)),
-          SizedBox(height: 11.v),
-          SizedBox(
-              height: 37.v,
-              width: 266.h,
-              child: Stack(alignment: Alignment.centerRight, children: [
-                Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 13.h, vertical: 9.v),
-                        decoration: AppDecoration.outlineGray500.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder5),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.only(top: 1.v),
-                                  child: Text("Select date",
-                                      style: CustomTextStyles.labelMediumBold)),
-                              CustomImageView(
-                                  imagePath: ImageConstant.imgArrowDown,
-                                  height: 5.v,
-                                  width: 12.h,
-                                  margin: EdgeInsets.only(
-                                      top: 5.v, right: 1.h, bottom: 5.v))
-                            ]))),
-                CustomImageView(
-                    imagePath: ImageConstant.imgCalendar,
-                    height: 20.adaptSize,
-                    width: 20.adaptSize,
-                    alignment: Alignment.centerRight,
-                    margin: EdgeInsets.only(right: 49.h))
-              ]))
+          SizedBox(height: 12.v),
+          Padding(
+              padding: EdgeInsets.only(left: 4.h),
+              child: CustomTextFormField(
+                  controller: dateController,
+                  hintText: "Expected Date",
+                  contentPadding:
+                  EdgeInsets.symmetric(horizontal: 23.h, vertical: 13.v)))
         ]));
   }
 
@@ -171,6 +153,13 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
               buttonTextStyle:
                   CustomTextStyles.labelMediumOnPrimaryContainerBold,
               onPressed: () {
+                Map<String,String> order ={
+                  'date':dateController.text,
+                  'time':timeController.text,
+                  'phno':phoneNumberController.text,
+                  'address':addressController.text,
+                };
+                dbRef.push().set(order);
                 onTapDONATENOW(context);
               }),
           SizedBox(height: 5.v)

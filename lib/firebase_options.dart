@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     authDomain: 'meal-connect-7c7de.firebaseapp.com',
     storageBucket: 'meal-connect-7c7de.appspot.com',
     measurementId: 'G-9BQ0QSHP9N',
+    databaseURL: 'https://meal-connect-7c7de-default-rtdb.firebaseio.com/'
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '200963182888',
     projectId: 'meal-connect-7c7de',
     storageBucket: 'meal-connect-7c7de.appspot.com',
+    databaseURL: 'https://meal-connect-7c7de-default-rtdb.firebaseio.com/'
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

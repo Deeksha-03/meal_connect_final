@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           title: 'meal_connect',
           debugShowCheckedModeBanner: false,
 
-          initialRoute: AppRoutes.signUpScreen,//change here startPageOneScreen
+          initialRoute: AppRoutes.checkoutPageTabContainerScreen,//change here startPageOneScreen
 
           routes: AppRoutes.routes,
         );
