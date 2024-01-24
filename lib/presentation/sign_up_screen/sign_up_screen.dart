@@ -22,8 +22,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   TextEditingController emailController1 = TextEditingController();
 
-  TextEditingController emailController2 = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
 
   TextEditingController passwordController1 = TextEditingController();
@@ -127,8 +125,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(height: 32.v),
                           _buildEmail(context),
                           SizedBox(height: 32.v),
-                          _buildPhoneNumber(context),
-                          SizedBox(height: 32.v),
                           _buildPassword(context),
                           SizedBox(height: 32.v),
                           _buildPassword1(context),
@@ -154,11 +150,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   // Store additional user information in Firestore
                                   await FirebaseFirestore.instance
                                       .collection('users')
-                                      .doc(emailController2.text) // Use phone number as the document ID
+                                      .doc(emailController1.text) // Use email as the document ID
                                       .set({
                                     'username': emailController.text,
                                     'email': emailController1.text,
-                                    'phone': emailController2.text,
                                     'password': passwordController.text,
                                   });
 
@@ -334,44 +329,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  /// Section Widget
-  Widget _buildPhoneNumber(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 18.h),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 2.v),
-                child: Text(
-                  "Phone Number",
-                  style: theme.textTheme.titleSmall,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 2.h,
-                  bottom: 3.v,
-                ),
-                child: Text(
-                  "*",
-                  style: theme.textTheme.bodyMedium,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 9.v),
-        CustomTextFormField(
-          controller: emailController2,
-          hintText: "Enter your email",
-          textInputType: TextInputType.emailAddress,
-        ),
-      ],
-    );
-  }
 
   /// Section Widget
   Widget _buildPassword(BuildContext context) {

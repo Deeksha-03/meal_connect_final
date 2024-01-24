@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "74076256211",
-    "project_id": "mealconnect1",
-    "storage_bucket": "mealconnect1.appspot.com"
+    "project_number": "200963182888",
+    "firebase_url": "https://meal-connect-7c7de-default-rtdb.firebaseio.com",
+    "project_id": "meal-connect-7c7de",
+    "storage_bucket": "meal-connect-7c7de.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:74076256211:android:7f4776d93da4356aef2126",
+        "mobilesdk_app_id": "1:200963182888:android:48fca1a81bf788119c801d",
         "android_client_info": {
           "package_name": "com.mealconnect.app"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAs4RuP9MsP14nIPcS3aYXbh-a3Nq8Hlds"
+          "current_key": "AIzaSyC2r5RebcJA2cu07AkTrR1-P7DUMc0I8G0"
         }
       ],
       "services": {
