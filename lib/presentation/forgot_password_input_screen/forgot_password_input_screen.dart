@@ -4,73 +4,93 @@ import 'package:meal_connect/widgets/app_bar/appbar_leading_iconbutton_one.dart'
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_icon_button.dart';
 
-class ForgotPasswordInputScreen extends StatelessWidget {
+class ForgotPasswordInputScreen extends StatefulWidget {
   const ForgotPasswordInputScreen({Key? key}) : super(key: key);
 
   @override
+  _ForgotPasswordInputScreenState createState() => _ForgotPasswordInputScreenState();
+}
+
+class _ForgotPasswordInputScreenState extends State<ForgotPasswordInputScreen> {
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: _buildAppBar(context),
-            body: SizedBox(
-                width: SizeUtils.width,
-                child: SingleChildScrollView(
-                    padding: EdgeInsets.only(top: 44.v),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 34.h),
-                              child: Text("Forgot Password",
-                                  style: CustomTextStyles
-                                      .headlineMediumPlusJakartaSansBluegray900)),
-                          SizedBox(height: 19.v),
-                          Container(
-                              width: 327.h,
-                              margin: EdgeInsets.only(left: 34.h, right: 66.h),
-                              child: Text(
-                                  "Provide your phone number (or) email address for which you want to reset your password",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: CustomTextStyles.titleSmallGray500_1)),
-                          SizedBox(height: 57.v),
-                          Padding(
-                              padding: EdgeInsets.only(left: 51.h),
-                              child: Text("Phone Number (or) Email",
-                                  style: theme.textTheme.titleSmall)),
-                          SizedBox(height: 12.v),
-                          _buildForm(context),
-                          SizedBox(height: 268.v),
-                          _buildRequestCode(context)
-                        ])))));
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        body: SizedBox(
+          width: SizeUtils.width,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(top: 44.v),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 34.h),
+                  child: Text(
+                    "Forgot Password",
+                    style: CustomTextStyles.headlineMediumPlusJakartaSansBluegray900,
+                  ),
+                ),
+                SizedBox(height: 19.v),
+                Container(
+                  width: 327.h,
+                  margin: EdgeInsets.only(left: 34.h, right: 66.h),
+                  child: Text(
+                    "Provide your phone number for which you want to reset your password",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: CustomTextStyles.titleSmallGray500_1,
+                  ),
+                ),
+                SizedBox(height: 57.v),
+                Padding(
+                  padding: EdgeInsets.only(left: 51.h),
+                  child: Text("Phone Number", style: theme.textTheme.titleSmall),
+                ),
+                SizedBox(height: 12.v),
+                _buildForm(context),
+                SizedBox(height: 268.v),
+                _buildRequestCode(context),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-        leadingWidth: double.maxFinite,
-        leading: AppbarLeadingIconbuttonOne(
-            imagePath: ImageConstant.imgUser,
-            margin: EdgeInsets.fromLTRB(24.h, 12.v, 373.h, 12.v),
-            onTap: () {
-              onTapUser(context);
-            }));
+      leadingWidth: double.maxFinite,
+      leading: AppbarLeadingIconbuttonOne(
+        imagePath: ImageConstant.imgUser,
+        margin: EdgeInsets.fromLTRB(24.h, 12.v, 373.h, 12.v),
+        onTap: () {
+          onTapUser(context);
+        },
+      ),
+    );
   }
 
-  /// Section Widget
   Widget _buildForm(BuildContext context) {
     return Align(
-        alignment: Alignment.center,
-        child: Container(
-            width: 360.h,
-            margin: EdgeInsets.symmetric(horizontal: 33.h),
-            padding: EdgeInsets.symmetric(horizontal: 29.h, vertical: 14.v),
-            decoration: AppDecoration.outlinePrimary1
-                .copyWith(borderRadius: BorderRadiusStyle.circleBorder26),
-            child: SizedBox(
-                height: 22.v,
-                child: VerticalDivider(
-                    width: 1.h, thickness: 1.v, color: appTheme.blue600))));
+      alignment: Alignment.center,
+      child: Container(
+        width: 360.h,
+        margin: EdgeInsets.symmetric(horizontal: 33.h),
+        padding: EdgeInsets.symmetric(horizontal: 29.h, vertical: 14.v),
+        decoration: AppDecoration.outlinePrimary1
+            .copyWith(borderRadius: BorderRadiusStyle.circleBorder26),
+        child: SizedBox(
+          height: 22.v,
+          child: VerticalDivider(
+            width: 1.h,
+            thickness: 1.v,
+            color: appTheme.blue600,
+          ),
+        ),
+      ),
+    );
   }
 
   /// Section Widget

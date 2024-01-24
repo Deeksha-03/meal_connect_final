@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'core/app_export.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  //WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -23,7 +27,8 @@ class MyApp extends StatelessWidget {
           theme: theme,
           title: 'meal_connect',
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.checkoutPageTabContainerScreen,//change here startPageOneScreen //ngoOrderListContainerScreen
+
+          initialRoute: AppRoutes.signUpScreen,//change here startPageOneScreen
 
           routes: AppRoutes.routes,
         );
