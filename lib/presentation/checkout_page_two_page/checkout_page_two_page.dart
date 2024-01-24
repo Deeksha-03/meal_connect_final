@@ -38,7 +38,6 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
                   Padding(
                       padding: EdgeInsets.only(left: 33.h, right: 37.h),
                       child: Column(children: [
-                        _buildMealsSection(context),
                         SizedBox(height: 73.v),
                         _buildDonationFormSection(context)
                       ]))
@@ -46,25 +45,7 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
   }
 
   /// Section Widget
-  Widget _buildMealsSection(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 46.h),
-        child: Column(children: [
-          Wrap(
-              runSpacing: 10.64.v,
-              spacing: 10.64.h,
-              children:
-                  List<Widget>.generate(6, (index) => EightythreeItemWidget())),
-          SizedBox(height: 29.v),
-          Container(
-              width: 266.h,
-              padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 10.v),
-              decoration: AppDecoration.outlinePrimary
-                  .copyWith(borderRadius: BorderRadiusStyle.roundedBorder20),
-              child: Text("Custom Amount",
-                  style: CustomTextStyles.labelMediumPrimary))
-        ]));
-  }
+
 
   /// Section Widget
   Widget _buildSelectCampaignSection(BuildContext context) {
@@ -147,7 +128,9 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
                   textInputType: TextInputType.phone,
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 23.h, vertical: 13.v)))
-        ]));
+        ]
+        )
+    );
   }
 
   /// Section Widget
