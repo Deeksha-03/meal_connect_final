@@ -42,21 +42,23 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCgjjQJDS4ny1HwfKV_rcLTLvjJ-Y-XBuE',
-    appId: '1:200963182888:web:80e1e390ee28c1479c801d',
-    messagingSenderId: '200963182888',
-    projectId: 'meal-connect-7c7de',
-    authDomain: 'meal-connect-7c7de.firebaseapp.com',
-    storageBucket: 'meal-connect-7c7de.appspot.com',
-    measurementId: 'G-9BQ0QSHP9N',
+      apiKey: 'AIzaSyCgjjQJDS4ny1HwfKV_rcLTLvjJ-Y-XBuE',
+      appId: '1:200963182888:web:80e1e390ee28c1479c801d',
+      messagingSenderId: '200963182888',
+      projectId: 'meal-connect-7c7de',
+      authDomain: 'meal-connect-7c7de.firebaseapp.com',
+      storageBucket: 'meal-connect-7c7de.appspot.com',
+      measurementId: 'G-9BQ0QSHP9N',
+      databaseURL: 'https://meal-connect-7c7de-default-rtdb.firebaseio.com/'
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC2r5RebcJA2cu07AkTrR1-P7DUMc0I8G0',
-    appId: '1:200963182888:android:48fca1a81bf788119c801d',
-    messagingSenderId: '200963182888',
-    projectId: 'meal-connect-7c7de',
-    storageBucket: 'meal-connect-7c7de.appspot.com',
+      apiKey: 'AIzaSyC2r5RebcJA2cu07AkTrR1-P7DUMc0I8G0',
+      appId: '1:200963182888:android:48fca1a81bf788119c801d',
+      messagingSenderId: '200963182888',
+      projectId: 'meal-connect-7c7de',
+      storageBucket: 'meal-connect-7c7de.appspot.com',
+      databaseURL: 'https://meal-connect-7c7de-default-rtdb.firebaseio.com/'
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
