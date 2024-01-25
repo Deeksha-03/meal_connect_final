@@ -207,7 +207,7 @@ class NgoVerificationPageScreen extends StatelessWidget {
   if (isVerified) {
    await saveNgoDetails();
 
-   Navigator.pushNamed(context, AppRoutes.profileCreationScreen);
+   Navigator.pushNamed(context, AppRoutes.successfulScreen);
   } else {
    print('NGO verification failed');
    // Display an error message or take appropriate action
@@ -220,23 +220,34 @@ class NgoVerificationPageScreen extends StatelessWidget {
   required String donationExpiredDate,
  }) async {
   DatabaseReference ngosRef =
-  FirebaseDatabase.instance.reference().child('1dV6ovTWO1qAeHRk2feh-1L15cnk0lfzCBAjeN2ftl2s').child('Sheet1').child('1');
+  FirebaseDatabase.instance.ref().child('1dV6ovTWO1qAeHRk2feh-1L15cnk0lfzCBAjeN2ftl2s').child('Sheet1');
 
   DatabaseEvent event = await ngosRef.once();
   DataSnapshot snapshot = event.snapshot;
 
-  Map<dynamic, dynamic>? values = snapshot.value as Map<dynamic, dynamic>?;
+  List<dynamic>? values = snapshot.value as List<dynamic>?;
 
   if (values != null) {
-   var ngo = values;
-   if (ngo['ngo_name'] == name &&
-       ngo['reg_no'] == registrationNumber) {
-    return true;
+   for (var entry in values) {
+    if (entry is Map<dynamic, dynamic>) {
+     //print("Database Entry: $entry");
+
+     print("Name Type: ${entry['ngo_name'].runtimeType}, Value: ${entry['ngo_name']}");
+     print("Registration Number Type: ${entry['registration_number'].runtimeType}, Value: ${entry['registration_number']}");
+
+     if (entry['ngo_name'] == name && entry['registration_number'] == registrationNumber) {
+      return true;
+     }
+    }
    }
   }
 
+  // If no match is found after checking all entries, return false
   return false;
  }
+
+
+
 
  Future<void> saveNgoDetails() async {
   DatabaseReference newNgoRef =
