@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_title_image.dart';
@@ -8,6 +9,7 @@ import 'package:meal_connect/widgets/custom_icon_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in_android/google_sign_in_android.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -18,9 +20,14 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   TextEditingController emailController = TextEditingController();
 
   TextEditingController emailController1 = TextEditingController();
+
+  TextEditingController emailController2 = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
 
@@ -125,6 +132,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(height: 32.v),
                           _buildEmail(context),
                           SizedBox(height: 32.v),
+                          _buildPhone(context),
+                          SizedBox(height: 32.v),
                           _buildPassword(context),
                           SizedBox(height: 32.v),
                           _buildPassword1(context),
@@ -154,11 +163,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       .set({
                                     'username': emailController.text,
                                     'email': emailController1.text,
+                                    'phone': emailController2,
                                     'password': passwordController.text,
                                   });
 
                                   // Navigate to the next screen
-                                  Navigator.pushNamed(context, '/select_location_screen');
+                                  Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
                                 } catch (e) {
                                   // Handle registration errors
                                   print("Error: Some error occurred during signing in");
@@ -180,6 +190,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: CustomImageView(
                               imagePath: ImageConstant.imgFlatColorIconsGoogle,
                             ),
+                            onTap: () async {
+                              final User? user = await _signInWithGoogle();
+                              if (user != null) {
+                                Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
+                              } else {
+                                print("Error: Some error occurred during signing in");
+                              }
+                            },
                           ),
                           SizedBox(height: 27.v),
                           SizedBox(
@@ -214,7 +232,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+  Future<User?> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+
+        final UserCredential authResult = await _auth.signInWithCredential(credential);
+        final User? user = authResult.user;
+
+        return user;
+      }
+    } catch (error) {
+      print('Google sign-in error: $error');
+      return null;
+    }
+  }
   /// Section Widget
   Widget _buildMainStack(BuildContext context) {
     return SizedBox(
@@ -328,6 +366,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
     );
   }
+
+  Widget _buildPhone(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 18.h),
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 2.v),
+                child: Text(
+                  "Phone No.",
+                  style: theme.textTheme.titleSmall,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 2.h,
+                  bottom: 3.v,
+                ),
+                child: Text(
+                  "*",
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 9.v),
+        CustomTextFormField(
+          controller: emailController2,
+          hintText: "Enter your Phone Number",
+          textInputType: TextInputType.phone,
+        ),
+      ],
+    );
+  }
+
 
 
   /// Section Widget
