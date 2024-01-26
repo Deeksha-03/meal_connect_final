@@ -35,6 +35,6 @@ class SuccessfulOneScreen extends StatelessWidget {
 
   /// Navigates to the ngoOrderListContainerScreen when the action is triggered.
   onTapContinue(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.ngoOrderListContainerScreen);
+    Navigator.pushNamed(context, AppRoutes.ngoOrderListScreen);
   }
 }
