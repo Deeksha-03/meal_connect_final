@@ -108,8 +108,8 @@ class SignUpForNgoScreen extends StatelessWidget {
                                     _buildUsername(context),
                                     SizedBox(height: 32.v),
                                     _buildEmail(context),
-                                    // SizedBox(height: 32.v),
-                                    // _buildPhoneNumber(context),
+                                    SizedBox(height: 32.v),
+                                    _buildPhoneNumber(context),
                                     SizedBox(height: 32.v),
                                     _buildPassword(context),
                                     SizedBox(height: 32.v),
@@ -319,7 +319,7 @@ class SignUpForNgoScreen extends StatelessWidget {
 
   /// Navigates to the codeVerificationOneScreen when the action is triggered.
   onTapNext(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.profileCreationScreen);
+    Navigator.pushNamed(context, AppRoutes.codeVerificationOneScreen);
   }
 
   /// Navigates to the signInDisabledScreen when the action is triggered.
