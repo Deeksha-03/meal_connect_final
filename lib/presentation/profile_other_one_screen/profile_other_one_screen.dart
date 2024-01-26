@@ -156,9 +156,14 @@ class ProfileOtherOneScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
-    return CustomBottomBar(onChanged: (BottomBarEnum type) {
-      Navigator.pushNamed(navigatorKey.currentContext!, getCurrentRoute(type));
-    });
+    return CustomBottomBar(
+      onTap: (BottomBarEnum type) {
+        Navigator.pushNamed(
+          context,
+          getCurrentRoute(type),
+        );
+      },
+    );
   }
 
   ///Handling route based on bottom click actions

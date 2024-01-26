@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
+import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
+import 'package:meal_connect/presentation/profile_other_screen/profile_other_screen.dart';
+import 'package:meal_connect/presentation/start_page_one_screen/start_page_one_screen.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_subtitle_three.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
@@ -57,9 +60,11 @@ class NgoOrderListScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: CustomBottomBar(
-          onChanged: (BottomBarEnum type) {
+          onTap: (BottomBarEnum type) {
             Navigator.pushNamed(
-                navigatorKey.currentContext!, getCurrentRoute(type));
+              context,
+              getCurrentRoute(type),
+            );
           },
         ),
       ),
@@ -106,7 +111,8 @@ class NgoOrderListScreen extends StatelessWidget {
             child: _buildContrast(
               context,
               donationSuccessfulText: "Donation Successful",
-              timeZoneText: "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+              timeZoneText:
+                  "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
             ),
           ),
           SizedBox(height: 36.v), // Space between repeated _buildContrast
@@ -203,65 +209,65 @@ class NgoOrderListScreen extends StatelessWidget {
   }
 
   Widget _buildContrast(
-      BuildContext context, {
-        required String donationSuccessfulText,
-        required String timeZoneText,
-      }) {
+    BuildContext context, {
+    required String donationSuccessfulText,
+    required String timeZoneText,
+  }) {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 8.v),
-        decoration: AppDecoration.outlineBluegray10002.copyWith(
-          borderRadius: BorderRadiusStyle.roundedBorder12,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-          CustomImageView(
-          imagePath: ImageConstant.imgNgoLogo,
-          height: 67.v,
-          width: 70.h,
-          margin: EdgeInsets.only(top: 1.v),
-        ),
-        Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.v),
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    Text(
-    donationSuccessfulText,
-    style: CustomTextStyles.titleSmallSemiBold_1.copyWith(
-    color: appTheme.blueGray900,
-    ),
-    ),
-    SizedBox(height: 9.v),
-    SizedBox(
-    width: 224.h,
-    child: Text(
-    timeZoneText,
-    maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      style: CustomTextStyles.labelMediumMedium.copyWith(
-        color: appTheme.gray500,
+      padding: EdgeInsets.symmetric(vertical: 8.v),
+      decoration: AppDecoration.outlineBluegray10002.copyWith(
+        borderRadius: BorderRadiusStyle.roundedBorder12,
       ),
-    ),
-    ),
-    ],
-    ),
-        ),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          CustomImageView(
+            imagePath: ImageConstant.imgNgoLogo,
+            height: 67.v,
+            width: 70.h,
+            margin: EdgeInsets.only(top: 1.v),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.v),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  donationSuccessfulText,
+                  style: CustomTextStyles.titleSmallSemiBold_1.copyWith(
+                    color: appTheme.blueGray900,
+                  ),
+                ),
+                SizedBox(height: 9.v),
+                SizedBox(
+                  width: 224.h,
+                  child: Text(
+                    timeZoneText,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: CustomTextStyles.labelMediumMedium.copyWith(
+                      color: appTheme.gray500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.ngoOrderListScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.profileOtherScreen;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationsNoNotiScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileOtherScreen;
       default:
         return "/";
     }
@@ -269,12 +275,17 @@ class NgoOrderListScreen extends StatelessWidget {
 
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.ngoOrderListPage:
+      case AppRoutes.ngoOrderListScreen:
         return NgoOrderListScreen(); // Use the same screen for now, you might want to change it.
+      case AppRoutes.profileOtherScreen:
+        return ProfileOtherScreen();
+      case AppRoutes.notificationsNoNotiScreen:
+        return NotificationsNoNotiScreen();
+
+
+
       default:
         return DefaultWidget();
     }
   }
 }
-
-

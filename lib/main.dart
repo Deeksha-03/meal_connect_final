@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           theme: theme,
           title: 'meal_connect',
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.ngoOrderListScreen,//change here startPageOneScreen //ngoOrderListContainerScreen
+          initialRoute: AppRoutes.startPageOneScreen,//change here startPageOneScreen //ngoOrderListContainerScreen
 
           routes: AppRoutes.routes,
         );

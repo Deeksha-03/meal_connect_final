@@ -1,3 +1,8 @@
+import 'package:meal_connect/presentation/home_page_extended_one_screen/home_page_extended_one_screen.dart';
+import 'package:meal_connect/presentation/notification_user/notification_user_screen.dart';
+import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
+import 'package:meal_connect/presentation/profile_user_screen/profile_user_screen.dart';
+
 import '../ngo_screen/widgets/userprofile_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
@@ -70,22 +75,27 @@ class NgoScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
-    return CustomBottomBar(onChanged: (BottomBarEnum type) {
-      Navigator.pushNamed(navigatorKey.currentContext!, getCurrentRoute(type));
-    });
+    return CustomBottomBar(
+      onTap: (BottomBarEnum type) {
+        Navigator.pushNamed(
+          context,
+          getCurrentRoute(type),
+        );
+      },
+    );
   }
 
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.homePageExtendedOneScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.ngoScreen;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationUserScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileUserScreen;
       default:
         return "/";
     }
@@ -94,8 +104,14 @@ class NgoScreen extends StatelessWidget {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.ngoOrderListPage:
-        return NgoOrderListPage();
+      case AppRoutes.homePageExtendedOneScreen:
+        return HomePageExtendedOneScreen();
+      case AppRoutes.ngoScreen:
+        return NgoScreen();
+      case AppRoutes.notificationUserScreen:
+        return NotificationUserScreen();
+      case AppRoutes.profileUserScreen:
+        return ProfileUserScreen();
       default:
         return DefaultWidget();
     }

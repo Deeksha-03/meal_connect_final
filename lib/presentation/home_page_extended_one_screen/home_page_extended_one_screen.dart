@@ -1,3 +1,8 @@
+import 'package:meal_connect/presentation/ngo_screen/ngo_screen.dart';
+import 'package:meal_connect/presentation/notification_user/notification_user_screen.dart';
+import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
+import 'package:meal_connect/presentation/profile_user_screen/profile_user_screen.dart';
+
 import '../home_page_extended_one_screen/widgets/widget1_item_widget.dart';
 import '../home_page_extended_one_screen/widgets/widget_item_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -25,10 +30,14 @@ class HomePageExtendedOneScreen extends StatelessWidget {
         body: SizedBox(width: 429.h,
             child: Column(
                 children: [SizedBox(height: 25.v), _buildScrollView(context)])),
-        bottomNavigationBar: CustomBottomBar(onChanged: (BottomBarEnum type) {
-          Navigator.pushNamed(
-              navigatorKey.currentContext!, getCurrentRoute(type));
-        })));
+        bottomNavigationBar: CustomBottomBar(
+          onTap: (BottomBarEnum type) {
+            Navigator.pushNamed(
+              context,
+              getCurrentRoute(type),
+            );
+          },
+        )));
   }
 
   /// Section Widget
@@ -477,13 +486,13 @@ class HomePageExtendedOneScreen extends StatelessWidget {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.homePageExtendedOneScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.ngoScreen;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationUserScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileUserScreen;
       default:
         return "/";
     }
@@ -492,8 +501,14 @@ class HomePageExtendedOneScreen extends StatelessWidget {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.ngoOrderListPage:
-        return NgoOrderListPage();
+      case AppRoutes.homePageExtendedOneScreen:
+        return HomePageExtendedOneScreen();
+      case AppRoutes.ngoScreen:
+        return NgoScreen();
+      case AppRoutes.notificationUserScreen:
+        return NotificationUserScreen();
+      case AppRoutes.profileUserScreen:
+        return ProfileUserScreen();
       default:
         return DefaultWidget();
     }
