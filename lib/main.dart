@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           title: 'meal_connect',
           debugShowCheckedModeBanner: false,
 
-          initialRoute: AppRoutes.signUpScreen,//change here startPageOneScreen
+          initialRoute: AppRoutes.checkoutPageTwoPage,//change here startPageOneScreen
 
           routes: AppRoutes.routes,
         );
