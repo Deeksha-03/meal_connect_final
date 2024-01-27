@@ -6,6 +6,10 @@ import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_icon_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key})
@@ -121,8 +125,8 @@ class SignUpScreen extends StatelessWidget {
                           _buildUsername(context),
                           SizedBox(height: 32.v),
                           _buildEmail(context),
-                          SizedBox(height: 32.v),
-                          _buildPhoneNumber(context),
+                          // SizedBox(height: 32.v),
+                          // _buildPhoneNumber(context),
                           SizedBox(height: 32.v),
                           _buildPassword(context),
                           SizedBox(height: 32.v),
@@ -134,6 +138,39 @@ class SignUpScreen extends StatelessWidget {
                               left: 13.h,
                               right: 19.h,
                             ),
+                            // FIREBASE CODE
+                            onPressed: () async {
+
+                              if (_formKey.currentState!.validate()) {
+                                try {
+                                  // Register user with email and password
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                    email: emailController1.text,
+                                    password: passwordController.text,
+                                  );
+
+                                  // User registration successful
+                                  // Store additional user information in Firestore
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(emailController1
+                                      .text) // Use email as the document ID
+                                      .set({
+                                    'username': emailController.text,
+                                    'email': emailController1.text,
+                                    'password': passwordController.text,
+                                  });
+
+                                  // Navigate to the next screen
+                                  Navigator.pushNamed(context, '/select_location_screen');
+                                } catch (e) {
+                                  // Handle registration errors
+                                  //print("Error: Some error occurred during signing in");
+                                  print("Error during sign up: $e");
+                                }
+                              }
+                            },
                           ),
                           SizedBox(height: 29.v),
                           Text(
