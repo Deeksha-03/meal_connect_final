@@ -12,4 +12,16 @@ class UserRepository extends  GetxController{
    await _db.collection("users").add(user.toJson());
 
   }
+  Future<UserModel> getUserDetails(String email) async {
+    final snapshot = await _db.collection("users").where("email", isEqualTo: email).get();
+    if (snapshot.docs.isNotEmpty) {
+      final userData = snapshot.docs.map((e) => UserModel.fromSapshot(e)).single;
+      return userData;
+    } else {
+      // Handle the case when the user document does not exist
+      throw Exception("User not found");
+    }
+
+  }
+
 }

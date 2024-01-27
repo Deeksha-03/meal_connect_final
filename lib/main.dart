@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
           //initialRoute: AppRoutes.startPageOneScreen,//change here startPageOneScreen
 
-          initialRoute: AppRoutes.signUpScreen,//change here startPageOneScreen//change here startPageOneScreen
+          initialRoute: AppRoutes.signInScreen,//change here startPageOneScreen//change here startPageOneScreen
 
           routes: AppRoutes.routes,
         );

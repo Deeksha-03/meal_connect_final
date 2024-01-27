@@ -44,6 +44,6 @@ class SuccessfulScreen extends StatelessWidget {
 
   /// Navigates to the homePageExtendedOneScreen when the action is triggered.
   onTapContinue(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.homePageExtendedOneScreen);
+    Navigator.pushNamed(context, AppRoutes.profileCreationFilledScreen);
   }
 }
