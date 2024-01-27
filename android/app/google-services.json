@@ -13,7 +13,20 @@
           "package_name": "com.mealconnect.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "200963182888-e2aufojabpvtjrrd821eabht8j23vgkb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mealconnect.app",
+            "certificate_hash": "1759e4998724d83de6cee162fb1d509e2dad9609"
+          }
+        },
+        {
+          "client_id": "200963182888-i3f7eef2cut4di4v7601n34mavcgtbkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC2r5RebcJA2cu07AkTrR1-P7DUMc0I8G0"
@@ -21,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200963182888-i3f7eef2cut4di4v7601n34mavcgtbkl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "200963182888-c9egbbir07cke50ug3su8879j7l9fl7t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mealconnect.app"
+              }
+            }
+          ]
         }
       }
     }

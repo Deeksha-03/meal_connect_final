@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39757569-d28d-43d9-8b9d-1ea22b8ad6aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/../linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Runner/GoogleService-Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/GoogleService-Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/firebase_options.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/firebase_options.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/presentation/sign_up_screen/sign_up_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/presentation/sign_up_screen/sign_up_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/../windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +39,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "firebase",
+    "git-widget-placeholder": "firebase-ngo",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>

@@ -72,21 +72,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ),
                                     CustomImageView(
                                       imagePath:
-                                          ImageConstant.imgVectorBlue60019x19,
+                                      ImageConstant.imgVectorBlue60019x19,
                                       height: 19.adaptSize,
                                       width: 19.adaptSize,
                                       alignment: Alignment.bottomLeft,
                                     ),
                                     CustomImageView(
                                       imagePath:
-                                          ImageConstant.imgVectorBlue60016x22,
+                                      ImageConstant.imgVectorBlue60016x22,
                                       height: 15.v,
                                       width: 18.h,
                                       alignment: Alignment.topRight,
                                     ),
                                     CustomImageView(
                                       imagePath:
-                                          ImageConstant.imgVectorBlue60013x14,
+                                      ImageConstant.imgVectorBlue60013x14,
                                       height: 13.v,
                                       width: 14.h,
                                       alignment: Alignment.topLeft,
@@ -190,7 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   TextSpan(
                                     text: "Already have an account?\n ",
                                     style:
-                                        CustomTextStyles.titleSmallBlack900_3,
+                                    CustomTextStyles.titleSmallBlack900_3,
                                   ),
                                   TextSpan(
                                     text: "Sign in",
