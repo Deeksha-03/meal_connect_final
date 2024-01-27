@@ -9,6 +9,19 @@ import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:meal_connect/core/models/user_model.dart';
+import 'package:meal_connect/core/models/user_repository.dart';
+
+class SignUpController extends GetxController {
+ static SignUpController get instance => Get.find();
+
+ final userRepo = Get.put(UserRepository());
+
+ Future <void> createUser(UserModel user) async{
+  await userRepo.createUser(user);
+ }
+}
 
 class NgoVerificationPageScreen extends StatefulWidget {
  NgoVerificationPageScreen({Key? key}) : super(key: key);
@@ -19,6 +32,9 @@ class NgoVerificationPageScreen extends StatefulWidget {
 }
 
 class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
+
+ final signUpController = Get.put(SignUpController());
+
  TextEditingController nameController = TextEditingController();
  TextEditingController registrationnumberController = TextEditingController();
  TextEditingController dateController = TextEditingController();
@@ -31,6 +47,8 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
  TextEditingController passwordController = TextEditingController();
 
  TextEditingController passwordController1 = TextEditingController();
+
+ final typeController = "ngo";
 
  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -152,18 +170,23 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
 
             // User registration successful
             // Store additional user information in Firestore
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(emailController1
-                .text) // Use email as the document ID
-                .set({
-             'username': nameController.text,
-             'email': emailController1.text,
-             'password': passwordController.text,
-            });
+            // await FirebaseFirestore.instance
+            //     .collection('users')
+            //     .doc(emailController1
+            //     .text) // Use email as the document ID
+            //     .set({
+            //  'username': nameController.text,
+            //  'email': emailController1.text,
+            //  'password': passwordController.text,
+            // });
+            final user = UserModel(email: emailController1.text.trim(),
+                name: nameController.text.trim(),
+                password: passwordController.text.trim(),
+                type: typeController);
+            signUpController.createUser(user);
 
             // Navigate to the next screen
-            Navigator.pushNamed(context, '/select_location_screen');
+            //Navigator.pushNamed(context, '/select_location_screen');
            } catch (e) {
             // Handle registration errors
             print("Error: Some error occurred during signing in");
