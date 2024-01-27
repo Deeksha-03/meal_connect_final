@@ -10,7 +10,7 @@ import 'package:meal_connect/widgets/app_bar/appbar_title_image.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/models/user_model.dart';
 
 class TypeController extends GetxController {

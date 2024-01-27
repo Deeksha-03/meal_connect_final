@@ -159,7 +159,7 @@ class AppRoutes {
     welcomePageOneScreen: (context) => WelcomePageOneScreen(),
     signUpScreen: (context) => SignUpScreen(),
     selectLocationScreen: (context) => SelectLocationScreen(),
-    selectLocationSelectedScreen: (context) => SelectLocationSelectedScreen(),
+    // selectLocationSelectedScreen: (context) => SelectLocationSelectedScreen(),
     userAndNgoWelcomeScreen: (context) => UserAndNgoWelcomeScreen(),
     signUpForNgoScreen: (context) => SignUpForNgoScreen(),
     codeVerificationOneScreen: (context) => CodeVerificationOneScreen(),
