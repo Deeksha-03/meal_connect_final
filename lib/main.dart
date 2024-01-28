@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
           //initialRoute: AppRoutes.startPageOneScreen,//change here startPageOneScreen
 
-          initialRoute: AppRoutes.startPageOneScreen,//change here startPageOneScreen//change here startPageOneScreen
+          initialRoute: AppRoutes.ngoOrderListScreen,//change here startPageOneScreen//change here startPageOneScreen
 
           routes: AppRoutes.routes,
         );

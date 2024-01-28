@@ -10,10 +10,22 @@ import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 import 'package:meal_connect/widgets/custom_outlined_button.dart';
 
 // Combined screen class
-class NgoOrderListScreen extends StatelessWidget {
-  NgoOrderListScreen({Key? key}) : super(key: key);
+class NgoOrderListScreen extends StatefulWidget {
+  const NgoOrderListScreen({Key? key}) : super(key: key);
 
+  @override
+  _NgoOrderListScreenState createState() => _NgoOrderListScreenState();
+}
+
+class _NgoOrderListScreenState extends State<NgoOrderListScreen> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  List<bool> selectedItems = List.generate(2, (index) => false);
+  Map<String, int> dateItems = {
+    "7th November, 2022": 1,
+    "6th November, 2022": 1,
+    "5th November, 2022": 2,
+    "4th November, 2022": 2,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +54,7 @@ class NgoOrderListScreen extends StatelessWidget {
                             style: CustomTextStyles.titleSmallBlack900_2,
                           ),
                           TextSpan(
-                            text: "8th November, 2022",
+                            text: "7th November, 2022",
                             style: CustomTextStyles.titleSmallGray500,
                           ),
                         ],
@@ -71,7 +83,6 @@ class NgoOrderListScreen extends StatelessWidget {
     );
   }
 
-  /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       height: 94.v,
@@ -91,77 +102,19 @@ class NgoOrderListScreen extends StatelessWidget {
   Widget _buildDonationList(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.h),
-      child: ListView.separated(
+      child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        separatorBuilder: (context, index) => SizedBox(height: 41.v),
         itemCount: 2,
-        itemBuilder: (context, index) => _donationListItem(context),
+        itemBuilder: (context, index) => _donationListItem(context, index),
       ),
     );
   }
 
-  Widget _buildDateItem(BuildContext context, String dateText, int numRepeats) {
-    List<Widget> contrastWidgets = List.generate(numRepeats, (_) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.h),
-            child: _buildContrast(
-              context,
-              donationSuccessfulText: "Donation Successful",
-              timeZoneText:
-                  "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
-            ),
-          ),
-          SizedBox(height: 36.v), // Space between repeated _buildContrast
-        ],
-      );
-    });
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 5.h),
-          child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: " ",
-                ),
-                TextSpan(
-                  text: dateText,
-                  style: CustomTextStyles.titleSmallGray500,
-                ),
-              ],
-            ),
-            textAlign: TextAlign.left,
-          ),
-        ),
-        SizedBox(height: 36.v),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: contrastWidgets,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDateColumn(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildDateItem(context, "4th November, 2022", 1),
-        _buildDateItem(context, "5th November, 2022", 1),
-        _buildDateItem(context, "6th November, 2022", 2),
-      ],
-    );
-  }
-
-  Widget _donationListItem(BuildContext context) {
-    return Padding(
+  Widget _donationListItem(BuildContext context, int index) {
+    return selectedItems[index]
+        ? SizedBox.shrink()
+        : Padding(
       padding: EdgeInsets.symmetric(horizontal: 2.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -199,6 +152,12 @@ class NgoOrderListScreen extends StatelessWidget {
                 text: "Pending",
                 margin: EdgeInsets.only(left: 12.h, top: 5.v, bottom: 7.v),
                 buttonStyle: CustomButtonStyles.outlinePrimary,
+                onPressed: () {
+                  setState(() {
+                    selectedItems[index] = true;
+                    _updateDateColumn();
+                  });
+                },
               ),
             ],
           ),
@@ -208,11 +167,76 @@ class NgoOrderListScreen extends StatelessWidget {
     );
   }
 
+  void _updateDateColumn() {
+    // Example: Increase the repeats for the selected date
+    dateItems["7th November, 2022"] = (dateItems["7th November, 2022"] ?? 0) + 1;
+
+    // You can call setState to trigger a rebuild of the widget tree
+    setState(() {});
+  }
+
+  Widget _buildDateColumn(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: dateItems.keys.map((dateText) {
+        return _buildDateItem(context, dateText, dateItems[dateText] ?? 0);
+      }).toList(),
+    );
+  }
+
+  Widget _buildDateItem(BuildContext context, String dateText, int numRepeats) {
+    List<Widget> contrastWidgets = List.generate(numRepeats, (_) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.h),
+            child: _buildContrast(
+              context,
+              donationSuccessfulText: "Donation Successful",
+              timeZoneText:
+              "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+            ),
+          ),
+          SizedBox(height: 36.v),
+        ],
+      );
+    });
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 5.h),
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: " ",
+                ),
+                TextSpan(
+                  text: dateText,
+                  style: CustomTextStyles.titleSmallGray500,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+        SizedBox(height: 36.v),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: contrastWidgets,
+        ),
+      ],
+    );
+  }
+
   Widget _buildContrast(
-    BuildContext context, {
-    required String donationSuccessfulText,
-    required String timeZoneText,
-  }) {
+      BuildContext context, {
+        required String donationSuccessfulText,
+        required String timeZoneText,
+      }) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.v),
       decoration: AppDecoration.outlineBluegray10002.copyWith(
@@ -276,14 +300,11 @@ class NgoOrderListScreen extends StatelessWidget {
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.ngoOrderListScreen:
-        return NgoOrderListScreen(); // Use the same screen for now, you might want to change it.
+        return NgoOrderListScreen();
       case AppRoutes.profileOtherScreen:
         return ProfileOtherScreen();
       case AppRoutes.notificationsNoNotiScreen:
         return NotificationsNoNotiScreen();
-
-
-
       default:
         return DefaultWidget();
     }
