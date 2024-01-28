@@ -1,79 +1,161 @@
-import 'package:meal_connect/presentation/home_page_extended_one_screen/home_page_extended_one_screen.dart';
-import 'package:meal_connect/presentation/notification_user/notification_user_screen.dart';
-import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
-import 'package:meal_connect/presentation/profile_user_screen/profile_user_screen.dart';
-
-import '../ngo_screen/widgets/userprofile_item_widget.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
-import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_subtitle_two.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_title.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 
+class NgoScreen extends StatefulWidget {
+  const NgoScreen({Key? key}) : super(key: key);
 
-// ignore_for_file: must_be_immutable
-class NgoScreen extends StatelessWidget {
-  NgoScreen({Key? key}) : super(key: key);
+  @override
+  _NgoScreenState createState() => _NgoScreenState();
+}
 
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+class _NgoScreenState extends State<NgoScreen> {
+  DatabaseReference _databaseReference =
+  FirebaseDatabase.instance.ref().child('verified_ngos');
+
+  List<String> ngoNames = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchNgoNames();
+  }
+
+  Future<void> _fetchNgoNames() async {
+    try {
+      DataSnapshot snapshot = await _databaseReference.get();
+      dynamic data = snapshot.value;
+      print(data);
+
+      if (data != null && data is Map<dynamic, dynamic>) {
+        List<String> names = [];
+        data.forEach((key, value) {
+          if (value is Map<String, dynamic>) {
+            String name = value['name'] ?? '';
+            names.add(name);
+          }
+        });
+
+        setState(() {
+          ngoNames = names;
+        });
+        print(ngoNames);
+      }
+    } catch (error) {
+      print("Error fetching NGO names: $error");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: _buildAppBar(context),
-            body: SizedBox(
-                width: double.maxFinite,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 49.v),
-                      _buildUserProfile(context)
-                    ])),
-            bottomNavigationBar: _buildBottomBar(context)));
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        body: SingleChildScrollView(  // Wrap the body in SingleChildScrollView
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 49.v),
+              _buildUserProfile(context),
+            ],
+          ),
+        ),
+        bottomNavigationBar: _buildBottomBar(context),
+      ),
+    );
   }
 
-  /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-        height: 94.v,
-        title: Padding(
-            padding: EdgeInsets.only(left: 38.h),
-            child: Row(children: [
-              AppbarSubtitleTwo(text: "MEAL\nCONNECT"),
-              AppbarTitle(
-                  text: "NGO’s", margin: EdgeInsets.only(left: 39.h, top: 4.v))
-            ])),
-        actions: [
-          AppbarTrailingIconbutton(
-              imagePath: ImageConstant.imgNgoLogo,
-              margin: EdgeInsets.fromLTRB(38.h, 38.v, 38.h, 22.v))
-        ],
-        styleType: Style.bgFill);
+      height: 94.v,
+      title: Padding(
+        padding: EdgeInsets.only(left: 38.h),
+        child: Row(
+          children: [
+            AppbarSubtitleTwo(text: "MEAL\nCONNECT"),
+            AppbarTitle(
+              text: "NGO’s",
+              margin: EdgeInsets.only(left: 39.h, top: 4.v),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        AppbarTrailingIconbutton(
+          imagePath: ImageConstant.imgNgoLogo,
+          margin: EdgeInsets.fromLTRB(38.h, 38.v, 38.h, 22.v),
+        ),
+      ],
+      styleType: Style.bgFill,
+    );
   }
 
-  /// Section Widget
   Widget _buildUserProfile(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 29.h),
-        child: ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 26.v);
+      padding: EdgeInsets.symmetric(horizontal: 29.h),
+      child: ListView.separated(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        separatorBuilder: (context, index) {
+          return SizedBox(height: 26.v);
+        },
+        itemCount: ngoNames.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              onTapUserProfile(context);
             },
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return UserprofileItemWidget(onTapUserProfile: () {
-                onTapUserProfile(context);
-              });
-            }));
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 8.v),
+              decoration: AppDecoration.outlineBluegray10002.copyWith(
+                borderRadius: BorderRadiusStyle.roundedBorder12,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgNgoLogo,
+                    height: 67.v,
+                    width: 70.h,
+                    margin: EdgeInsets.only(top: 1.v),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.v),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          ngoNames[index],  // Displaying actual NGO name
+                          style: CustomTextStyles.titleSmallSemiBold_1,
+                        ),
+                        SizedBox(height: 9.v),
+                        SizedBox(
+                          width: 224.h,
+                          child: Text(
+                            "Quis odio magna aliquet hac est ultrices. Sed ut tincidunt fames nibh.",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: CustomTextStyles.labelMediumMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
-  /// Section Widget
+
   Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
       onTap: (BottomBarEnum type) {
@@ -85,7 +167,6 @@ class NgoScreen extends StatelessWidget {
     );
   }
 
-  ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
@@ -101,23 +182,6 @@ class NgoScreen extends StatelessWidget {
     }
   }
 
-  ///Handling page based on route
-  Widget getCurrentPage(String currentRoute) {
-    switch (currentRoute) {
-      case AppRoutes.homePageExtendedOneScreen:
-        return HomePageExtendedOneScreen();
-      case AppRoutes.ngoScreen:
-        return NgoScreen();
-      case AppRoutes.notificationUserScreen:
-        return NotificationUserScreen();
-      case AppRoutes.profileUserScreen:
-        return ProfileUserScreen();
-      default:
-        return DefaultWidget();
-    }
-  }
-
-  /// Navigates to the profileOtherScreen when the action is triggered.
   onTapUserProfile(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.profileOtherScreen);
   }
