@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:meal_connect/core/app_export.dart';
+import 'package:meal_connect/core/models/user_model.dart';
+import 'package:meal_connect/core/models/user_repository.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_title_image.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
@@ -9,14 +12,26 @@ import 'package:meal_connect/widgets/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SignUpScreen extends StatefulWidget {
-  SignUpScreen({Key? key}) : super(key: key);
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-  @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+class SignUpController extends GetxController {
+  static SignUpController get instance => Get.find();
+
+  final userRepo = Get.put(UserRepository());
+
+  Future <void> createUser(UserModel user) async{
+    await userRepo.createUser(user);
+  }
 }
+class SignUpScreen extends StatelessWidget{
+  SignUpScreen({Key? key})
+      : super(
+          key: key,
+        );
+  final signUpController = Get.put(SignUpController());
 
-class _SignUpScreenState extends State<SignUpScreen> {
+
 
   TextEditingController emailController = TextEditingController();
 
@@ -25,6 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
 
   TextEditingController passwordController1 = TextEditingController();
+  final typeController = "contributer";
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -124,6 +140,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _buildUsername(context),
                           SizedBox(height: 32.v),
                           _buildEmail(context),
+
+                          // SizedBox(height: 32.v),
+                          // _buildPhoneNumber(context),
+
                           SizedBox(height: 32.v),
                           _buildPassword(context),
                           SizedBox(height: 32.v),
@@ -137,6 +157,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             // FIREBASE CODE
                             onPressed: () async {
+
+
+
+
                               if (_formKey.currentState!.validate()) {
                                 try {
                                   // Register user with email and password
@@ -148,20 +172,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                                   // User registration successful
                                   // Store additional user information in Firestore
-                                  await FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(emailController1.text) // Use email as the document ID
-                                      .set({
-                                    'username': emailController.text,
-                                    'email': emailController1.text,
-                                    'password': passwordController.text,
-                                  });
+
+                                  // await FirebaseFirestore.instance
+                                  //     .collection('users')
+                                  //     .doc(emailController1
+                                  //     .text) // Use email as the document ID
+                                  //     .set({
+                                  //   'username': emailController.text,
+                                  //   'email': emailController1.text,
+                                  //   'password': passwordController.text,
+                                  //   'type': typeController,
+                                  // });
+                                  final user = UserModel(email: emailController1.text.trim(),
+                                      name: emailController.text.trim(),
+                                      password: passwordController.text.trim(),
+                                      type: typeController);
+                                  signUpController.createUser(user);
 
                                   // Navigate to the next screen
-                                  Navigator.pushNamed(context,'AppRoutes.userandngowelcomescreen');
+                                  Navigator.pushNamed(context, '/select_location_screen');
                                 } catch (e) {
                                   // Handle registration errors
-                                  print("Error: Some error occurred during signing in");
+                                  //print("Error: Some error occurred during signing in");
+                                  print("Error during sign up: $e");
+
                                 }
                               }
                             },

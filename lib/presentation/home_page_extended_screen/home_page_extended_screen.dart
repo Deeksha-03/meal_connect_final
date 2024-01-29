@@ -636,9 +636,11 @@ class HomePageExtendedScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
-      onChanged: (BottomBarEnum type) {
+      onTap: (BottomBarEnum type) {
         Navigator.pushNamed(
-            navigatorKey.currentContext!, getCurrentRoute(type));
+          context,
+          getCurrentRoute(type),
+        );
       },
     );
   }

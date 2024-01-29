@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
+import 'package:meal_connect/presentation/home_page_extended_one_screen/home_page_extended_one_screen.dart';
 import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
 import 'package:meal_connect/presentation/ngo_order_list_screen/ngo_order_list_screen.dart';
+import 'package:meal_connect/presentation/ngo_screen/ngo_screen.dart';
 import 'package:meal_connect/presentation/profile_other_screen/profile_other_screen.dart';
+import 'package:meal_connect/presentation/profile_user_screen/profile_user_screen.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_subtitle_three.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_title.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 
-class NotificationsNoNotiScreen extends StatelessWidget {
-  NotificationsNoNotiScreen({Key? key})
+class NotificationUserScreen extends StatelessWidget {
+  NotificationUserScreen({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
@@ -94,13 +97,13 @@ class NotificationsNoNotiScreen extends StatelessWidget {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListScreen;
+        return AppRoutes.homePageExtendedOneScreen;
       case BottomBarEnum.Ngo:
-        return AppRoutes.profileOtherScreen;
+        return AppRoutes.ngoScreen;
       case BottomBarEnum.Notification:
-        return AppRoutes.notificationsNoNotiScreen;
+        return AppRoutes.notificationUserScreen;
       case BottomBarEnum.Profile:
-        return AppRoutes.profileOtherScreen;
+        return AppRoutes.profileUserScreen;
       default:
         return "/";
     }
@@ -108,12 +111,14 @@ class NotificationsNoNotiScreen extends StatelessWidget {
 
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.ngoOrderListScreen:
-        return NgoOrderListScreen(); // Use the same screen for now, you might want to change it.
-      case AppRoutes.profileOtherScreen:
-        return ProfileOtherScreen();
-      case AppRoutes.notificationsNoNotiScreen:
-        return NotificationsNoNotiScreen();
+      case AppRoutes.homePageExtendedOneScreen:
+        return HomePageExtendedOneScreen(); // Use the same screen for now, you might want to change it.
+      case AppRoutes.ngoScreen:
+        return NgoScreen();
+      case AppRoutes.notificationUserScreen:
+        return NotificationUserScreen();
+      case AppRoutes.profileUserScreen:
+        return ProfileUserScreen();
 
 
 
