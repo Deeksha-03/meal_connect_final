@@ -27,7 +27,9 @@ class HomePageExtendedOneScreen extends StatelessWidget {
   void fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userName = prefs.getString('user_email');
+    String? location = prefs.getString('selected_location');
     print(userName);
+    print(location);
   }
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();

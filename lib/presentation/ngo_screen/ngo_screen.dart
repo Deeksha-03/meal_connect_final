@@ -6,6 +6,7 @@ import 'package:meal_connect/widgets/app_bar/appbar_title.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NgoScreen extends StatefulWidget {
   const NgoScreen({Key? key}) : super(key: key);
@@ -49,6 +50,14 @@ class _NgoScreenState extends State<NgoScreen> {
     } catch (error) {
       print("Error fetching NGO names: $error");
     }
+  }
+
+  void fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('user_email');
+    String? location = prefs.getString('selected_location');
+    print(userName);
+    print(location);
   }
 
   @override

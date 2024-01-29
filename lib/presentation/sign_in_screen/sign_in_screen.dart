@@ -249,7 +249,7 @@ class _SignInScreenState extends State<SignInScreen> {
           if (userType == "ngo") {
             Navigator.pushNamed(context, AppRoutes.ngoOrderListScreen);
           } else if (userType == "contributer") {
-            Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
+            Navigator.pushNamed(context, AppRoutes.selectLocationSelectedScreen);
           } else {
             // Handle unknown user type
             print("Unknown user type");
