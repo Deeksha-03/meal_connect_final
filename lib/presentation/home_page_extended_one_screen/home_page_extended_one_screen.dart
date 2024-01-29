@@ -2,6 +2,7 @@ import 'package:meal_connect/presentation/ngo_screen/ngo_screen.dart';
 import 'package:meal_connect/presentation/notification_user/notification_user_screen.dart';
 import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
 import 'package:meal_connect/presentation/profile_user_screen/profile_user_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home_page_extended_one_screen/widgets/widget1_item_widget.dart';
 import '../home_page_extended_one_screen/widgets/widget_item_widget.dart';
@@ -23,6 +24,12 @@ class HomePageExtendedOneScreen extends StatelessWidget {
 
   int sliderIndex1 = 1;
 
+  void fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('user_email');
+    print(userName);
+  }
+
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override Widget build(BuildContext context) {
@@ -32,6 +39,7 @@ class HomePageExtendedOneScreen extends StatelessWidget {
                 children: [SizedBox(height: 25.v), _buildScrollView(context)])),
         bottomNavigationBar: CustomBottomBar(
           onTap: (BottomBarEnum type) {
+            fetchData();
             Navigator.pushNamed(
               context,
               getCurrentRoute(type),

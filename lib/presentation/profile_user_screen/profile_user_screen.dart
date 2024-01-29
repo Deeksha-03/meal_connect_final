@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/presentation/home_page_extended_one_screen/home_page_extended_one_screen.dart';
@@ -11,6 +12,9 @@ import 'package:meal_connect/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 import 'package:meal_connect/widgets/custom_checkbox_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../widgets/custom_elevated_button.dart';
 
 // ignore_for_file: must_be_immutable
 class ProfileUserScreen extends StatelessWidget {
@@ -52,9 +56,22 @@ class ProfileUserScreen extends StatelessWidget {
                   _buildPhoneNo(context),
                   SizedBox(height: 23.v),
                   _buildView(context),
-                  SizedBox(height: 5.v)
+                  SizedBox(height: 60.v),
+                  CustomElevatedButton(
+                      text: "Sign Out",
+                      margin: EdgeInsets.only(left: 27.h, right: 15.h),
+                      onPressed: () {
+                        signOut();
+                      }),
                 ])),
             bottomNavigationBar: _buildBottomBar(context)));
+  }
+
+  Future<void> signOut() async {
+    // Clear user login session when signing out
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('user_email');
+    await FirebaseAuth.instance.signOut();
   }
 
   /// Section Widget

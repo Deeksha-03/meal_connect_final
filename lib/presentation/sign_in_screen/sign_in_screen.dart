@@ -224,74 +224,7 @@ class _SignInScreenState extends State<SignInScreen> {
            EdgeInsets.only(left: 23.h, top: 17.v, bottom: 17.v))
       ]));
  }
- // Future<String> getUserType(String? email) async {
- //   try {
- //     // DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("users").doc(email).get();
- //     // print(userSnapshot);
- //     DocumentSnapshot userSnapshot = await typeController.getUserData(email);
- //
- //     print(userSnapshot);
- //
- //     if (userSnapshot.exists) {
- //       // Cast the result of data() to Map<String, dynamic>
- //       Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
- //       print(userData);
- //
- //       // Assuming your Firestore document has a field named "type" for user type
- //       return userData['type'] ?? 'unknown';
- //     } else {
- //       // Handle the case when the user document does not exist
- //       return 'unknown';
- //     }
- //   }catch (e) {
- //     // Handle errors, e.g., display an error message
- //     print("Error fetching user type: $e");
- //     // You can display an error message to the user here.
- //     return 'unknown';
- //   }
- // }
 
-  // void _handleSignIn(BuildContext context) async {
-  //   if (_formKey.currentState?.validate() ?? false) {
-  //     try {
-  //       // Sign in with Firebase Auth
-  //       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //         email: johnController.text.trim(),
-  //         password: passwordController.text.trim(),
-  //       );
-  //
-  //       print(userCredential.user?.email);
-  //
-  //       // Handle successful sign-in, e.g., navigate to welcome screen
-  //       String userType = await getUserType(userCredential.user?.email);
-  //
-  //       // Navigate based on user type
-  //       if (userType == "ngo") {
-  //         Navigator.pushNamed(context, AppRoutes.ngoOrderListScreen);
-  //       } else if (userType == "contributer") {
-  //         Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
-  //       } else {
-  //         // Handle unknown user type
-  //         print("Unknown user type");
-  //       }
-  //     } on FirebaseAuthException catch (e) {
-  //       // Handle FirebaseAuthException
-  //       if (e.code == 'user-not-found') {
-  //         // Handle case where user is not found
-  //         print("User not found");
-  //         // You can show a message or navigate to a specific screen
-  //       } else {
-  //         // Handle other FirebaseAuthExceptions
-  //         print("Failed to sign in: $e");
-  //         // You can display an error message to the user here.
-  //       }
-  //     } catch (e) {
-  //       // Handle other exceptions
-  //       print("Error: $e");
-  //       // You can display an error message to the user here.
-  //     }
-  //   }
-  // }
 
   void _handleSignIn(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
@@ -301,6 +234,9 @@ class _SignInScreenState extends State<SignInScreen> {
           email: johnController.text.trim(),
           password: passwordController.text.trim(),
         );
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('user_email', johnController.text.trim());
 
         // Handle successful sign-in, e.g., navigate to welcome screen
         UserModel userData = await typeController.getUserData(userCredential.user?.email ?? '');

@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:meal_connect/presentation/start_page_one_screen/start_page_one_screen.dart';
