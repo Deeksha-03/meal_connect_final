@@ -114,14 +114,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                    text: "Forgot",
+                                    text: "Forgot password?",
                                     style: CustomTextStyles
                                         .titleSmallPrimaryBold_2),
-                                TextSpan(text: " "),
-                                TextSpan(
-                                    text: "password?",
-                                    style: CustomTextStyles
-                                        .titleSmallPrimaryBold_2)
                               ]),
                               textAlign: TextAlign.left)),
                       SizedBox(height: 24.v),
@@ -244,6 +239,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   /// Navigates to the welcomePageOneScreen when the action is triggered.
   onTapTxtDonthaveanaccount(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.welcomePageOneScreen);
+    Navigator.pushNamed(context, AppRoutes.signUpScreen);
   }
 }

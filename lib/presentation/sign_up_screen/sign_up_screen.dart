@@ -191,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               imagePath: ImageConstant.imgFlatColorIconsGoogle,
                             ),
                             onTap: () async {
-                              final User? user = await _signInWithGoogle();
+                              final UserCredential? user = await _signInWithGoogle();
                               if (user != null) {
                                 Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
                               } else {
@@ -232,21 +232,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-  Future<User?> _signInWithGoogle() async {
+  Future<UserCredential?> _signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final GoogleSignInAccount? gUser = await _googleSignIn.signIn();
+      if (gUser != null) {
+        final GoogleSignInAuthentication gAuth = await gUser!.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
+          accessToken: gAuth.accessToken,
+          idToken: gAuth.idToken,
         );
 
-        final UserCredential authResult = await _auth.signInWithCredential(credential);
+        /*final UserCredential authResult = await _auth.signInWithCredential(credential);
         final User? user = authResult.user;
 
-        return user;
+        return user;*/
+        return await FirebaseAuth.instance.signInWithCredential(credential);
       }
     } catch (error) {
       print('Google sign-in error: $error');
