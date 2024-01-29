@@ -31,10 +31,7 @@ class MyApp extends StatelessWidget {
 
 
 
-
-          initialRoute: AppRoutes.startPageOneScreen,//change here startPageOneScreen//change here startPageOneScreen
-
-
+          initialRoute: AppRoutes.forgotPasswordScreen,
 
           routes: AppRoutes.routes,
         );

@@ -162,6 +162,7 @@ class _SignInScreenState extends State<SignInScreen> {
                            child: RichText(
                                text: TextSpan(children: [
                                 TextSpan(
+// <<<<<<< HEAD
                                     text: "Don’t have an account?\n ",
                                     style: CustomTextStyles
                                         .titleSmallBlack900_3),
@@ -229,6 +230,47 @@ class _SignInScreenState extends State<SignInScreen> {
            EdgeInsets.only(left: 23.h, top: 17.v, bottom: 17.v))
       ]));
  }
+// =======
+//                                     text: "Forgot password?",
+//                                     style: CustomTextStyles
+//                                         .titleSmallPrimaryBold_2),
+//                               ]),
+//                               textAlign: TextAlign.left)),
+//                       SizedBox(height: 24.v),
+//                       CustomElevatedButton(
+//                           text: "Sign In",
+//                           margin: EdgeInsets.only(left: 27.h, right: 15.h),
+//                           onPressed: () {
+//                             _handleSignIn(context);
+//                           }),
+//                       SizedBox(height: 57.v),
+//                       GestureDetector(
+//                           onTap: () {
+//                             onTapTxtDonthaveanaccount(context);
+//                           },
+//                           child: SizedBox(
+//                               width: 153.h,
+//                               child: RichText(
+//                                   text: TextSpan(children: [
+//                                     TextSpan(
+//                                         text: "Don’t have an account?\n ",
+//                                         style: CustomTextStyles
+//                                             .titleSmallBlack900_3),
+//                                     TextSpan(
+//                                         text: "Sign",
+//                                         style: CustomTextStyles
+//                                             .titleSmallPrimaryBold_2),
+//                                     TextSpan(text: " "),
+//                                     TextSpan(
+//                                         text: "up",
+//                                         style: CustomTextStyles
+//                                             .titleSmallPrimaryBold_2)
+//                                   ]),
+//                                   textAlign: TextAlign.center))),
+//                       SizedBox(height: 5.v)
+//                     ])))));
+//   }
+// >>>>>>> f7e56bc6546de6d21f5ae92559bc4aacb687dcdc
 
 
 
@@ -306,9 +348,15 @@ class _SignInScreenState extends State<SignInScreen> {
   Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
  }
 
- /// Navigates to the welcomePageOneScreen when the action is triggered.
- onTapTxtDonthaveanaccount(BuildContext context) {
-  Navigator.pushNamed(context, AppRoutes.welcomePageOneScreen);
- }
+ // /// Navigates to the welcomePageOneScreen when the action is triggered.
+ // onTapTxtDonthaveanaccount(BuildContext context) {
+ //  Navigator.pushNamed(context, AppRoutes.welcomePageOneScreen);
+ // }
+
+
+  /// Navigates to the welcomePageOneScreen when the action is triggered.
+  onTapTxtDonthaveanaccount(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.signUpScreen);
+  }
 
 }

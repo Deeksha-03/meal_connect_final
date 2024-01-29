@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_leading_iconbutton_one.dart';
@@ -13,8 +14,23 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
- final TextEditingController phoneNumberController = TextEditingController();
+ final TextEditingController emailController = TextEditingController();
  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+ @override
+ void dispose(){
+  emailController.dispose();
+  super.dispose();
+ }
+
+ Future passwordReset() async {
+  try {
+   await FirebaseAuth.instance.sendPasswordResetEmail(
+       email: emailController.text.trim());
+  } on FirebaseAuthException catch (e) {
+   print(e);
+  }
+ }
 
  @override
  Widget build(BuildContext context) {
@@ -42,7 +58,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
          width: 327.h,
          margin: EdgeInsets.only(left: 2.h, right: 34.h),
          child: Text(
-          "Provide your phone number for which you want to reset your password",
+          "Provide your email address for which you want to reset your password",
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: CustomTextStyles.titleSmallGray500_1,
@@ -51,22 +67,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         SizedBox(height: 57.v),
         Padding(
          padding: EdgeInsets.only(left: 19.h),
-         child: Text("Phone Number", style: theme.textTheme.titleSmall),
+         child: Text("Email Id", style: theme.textTheme.titleSmall),
         ),
         SizedBox(height: 12.v),
         Padding(
          padding: EdgeInsets.only(left: 2.h),
          child: CustomTextFormField(
-          controller: phoneNumberController,
-          hintText: "Enter phone number",
+          controller: emailController,
+          hintText: "Enter your email",
           hintStyle: CustomTextStyles.titleSmallBluegray10002,
           textInputAction: TextInputAction.done,
-          textInputType: TextInputType.phone,
+          textInputType: TextInputType.emailAddress,
          ),
         ),
         Spacer(),
         CustomElevatedButton(
          text: "Request Code",
+         onPressed: () => passwordReset(),
          margin: EdgeInsets.symmetric(horizontal: 17.h),
          alignment: Alignment.center,
         ),

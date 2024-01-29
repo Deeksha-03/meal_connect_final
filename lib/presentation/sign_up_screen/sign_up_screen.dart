@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:google_sign_in/google_sign_in.dart';
-
 import 'package:get/get.dart';
-
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/core/models/user_model.dart';
 import 'package:meal_connect/core/models/user_repository.dart';
@@ -15,8 +11,6 @@ import 'package:meal_connect/widgets/custom_icon_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_sign_in_android/google_sign_in_android.dart';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -32,14 +26,10 @@ class SignUpController extends GetxController {
 class SignUpScreen extends StatelessWidget{
   SignUpScreen({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
   final signUpController = Get.put(SignUpController());
 
-
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   TextEditingController emailController = TextEditingController();
 
@@ -98,21 +88,21 @@ class SignUpScreen extends StatelessWidget{
                                     ),
                                     CustomImageView(
                                       imagePath:
-                                          ImageConstant.imgVectorBlue60019x19,
+                                      ImageConstant.imgVectorBlue60019x19,
                                       height: 19.adaptSize,
                                       width: 19.adaptSize,
                                       alignment: Alignment.bottomLeft,
                                     ),
                                     CustomImageView(
                                       imagePath:
-                                          ImageConstant.imgVectorBlue60016x22,
+                                      ImageConstant.imgVectorBlue60016x22,
                                       height: 15.v,
                                       width: 18.h,
                                       alignment: Alignment.topRight,
                                     ),
                                     CustomImageView(
                                       imagePath:
-                                          ImageConstant.imgVectorBlue60013x14,
+                                      ImageConstant.imgVectorBlue60013x14,
                                       height: 13.v,
                                       width: 14.h,
                                       alignment: Alignment.topLeft,
@@ -150,12 +140,8 @@ class SignUpScreen extends StatelessWidget{
                           _buildUsername(context),
                           SizedBox(height: 32.v),
                           _buildEmail(context),
-
                           // SizedBox(height: 32.v),
                           // _buildPhoneNumber(context),
-
-                          SizedBox(height: 32.v),
-                          _buildPhone(context),
                           SizedBox(height: 32.v),
                           _buildPassword(context),
                           SizedBox(height: 32.v),
@@ -171,8 +157,6 @@ class SignUpScreen extends StatelessWidget{
                             onPressed: () async {
 
 
-
-
                               if (_formKey.currentState!.validate()) {
                                 try {
                                   // Register user with email and password
@@ -184,18 +168,6 @@ class SignUpScreen extends StatelessWidget{
 
                                   // User registration successful
                                   // Store additional user information in Firestore
-// <<<<<<< HEAD
-                                  await FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(emailController1.text) // Use email as the document ID
-                                      .set({
-                                    'username': emailController.text,
-                                    'email': emailController1.text,
-                                    'phone': emailController2,
-                                    'password': passwordController.text,
-                                  });
-// =======
-
                                   // await FirebaseFirestore.instance
                                   //     .collection('users')
                                   //     .doc(emailController1
@@ -211,15 +183,13 @@ class SignUpScreen extends StatelessWidget{
                                       password: passwordController.text.trim(),
                                       type: typeController);
                                   signUpController.createUser(user);
-// >>>>>>> ngo-frontend
 
                                   // Navigate to the next screen
-                                  Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
+                                  Navigator.pushNamed(context, '/select_location_screen');
                                 } catch (e) {
                                   // Handle registration errors
                                   //print("Error: Some error occurred during signing in");
                                   print("Error during sign up: $e");
-
                                 }
                               }
                             },
@@ -238,14 +208,6 @@ class SignUpScreen extends StatelessWidget{
                             child: CustomImageView(
                               imagePath: ImageConstant.imgFlatColorIconsGoogle,
                             ),
-                            onTap: () async {
-                              final User? user = await _signInWithGoogle();
-                              if (user != null) {
-                                Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
-                              } else {
-                                print("Error: Some error occurred during signing in");
-                              }
-                            },
                           ),
                           SizedBox(height: 27.v),
                           SizedBox(
@@ -256,7 +218,7 @@ class SignUpScreen extends StatelessWidget{
                                   TextSpan(
                                     text: "Already have an account?\n ",
                                     style:
-                                        CustomTextStyles.titleSmallBlack900_3,
+                                    CustomTextStyles.titleSmallBlack900_3,
                                   ),
                                   TextSpan(
                                     text: "Sign in",
@@ -280,27 +242,7 @@ class SignUpScreen extends StatelessWidget{
       ),
     );
   }
-  Future<User?> _signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
-
-        final UserCredential authResult = await _auth.signInWithCredential(credential);
-        final User? user = authResult.user;
-
-        return user;
-      }
-    } catch (error) {
-      print('Google sign-in error: $error');
-      return null;
-    }
-  }
   /// Section Widget
   Widget _buildMainStack(BuildContext context) {
     return SizedBox(
@@ -415,7 +357,8 @@ class SignUpScreen extends StatelessWidget{
     );
   }
 
-  Widget _buildPhone(BuildContext context) {
+  /// Section Widget
+  Widget _buildPhoneNumber(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -426,7 +369,7 @@ class SignUpScreen extends StatelessWidget{
               Padding(
                 padding: EdgeInsets.only(top: 2.v),
                 child: Text(
-                  "Phone No.",
+                  "Phone Number",
                   style: theme.textTheme.titleSmall,
                 ),
               ),
@@ -446,14 +389,12 @@ class SignUpScreen extends StatelessWidget{
         SizedBox(height: 9.v),
         CustomTextFormField(
           controller: emailController2,
-          hintText: "Enter your Phone Number",
-          textInputType: TextInputType.phone,
+          hintText: "Enter your email",
+          textInputType: TextInputType.emailAddress,
         ),
       ],
     );
   }
-
-
 
   /// Section Widget
   Widget _buildPassword(BuildContext context) {
@@ -569,8 +510,5 @@ class SignUpScreen extends StatelessWidget{
         ),
       ],
     );
-  }
-  onTapTxtSignUp(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.signInDisabledScreen);
   }
 }
