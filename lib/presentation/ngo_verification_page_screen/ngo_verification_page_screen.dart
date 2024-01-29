@@ -12,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:meal_connect/core/models/user_model.dart';
 import 'package:meal_connect/core/models/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpController extends GetxController {
  static SignUpController get instance => Get.find();
@@ -167,6 +168,9 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
              email: emailController1.text,
              password: passwordController.text,
             );
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('reg_no', registrationnumberController.text.trim());
+            prefs.setString('ngo_name', nameController.text.trim());
 
             // User registration successful
             // Store additional user information in Firestore
