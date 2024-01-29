@@ -27,7 +27,7 @@ class AppbarSubtitleThree extends StatelessWidget {
       child: Padding(
         padding: margin ?? EdgeInsets.zero,
         child: SizedBox(
-          width: 57.h,
+          width: 70.h,
           child: Text(
             text,
             maxLines: 2,

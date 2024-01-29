@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/presentation/checkout_page_two_page/checkout_page_two_page.dart';
 import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
 import 'package:meal_connect/widgets/app_bar/appbar_subtitle.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
+import 'package:meal_connect/widgets/custom_text_form_field.dart';
+import 'package:meal_connect/widgets/custom_elevated_button.dart';
 
 class CheckoutPageTabContainerScreen extends StatefulWidget {
-  const CheckoutPageTabContainerScreen({Key? key})
-      : super(
-          key: key,
-        );
+  const CheckoutPageTabContainerScreen({Key? key}) : super(key: key);
 
   @override
   CheckoutPageTabContainerScreenState createState() =>
@@ -21,13 +21,13 @@ class CheckoutPageTabContainerScreenState
     extends State<CheckoutPageTabContainerScreen>
     with TickerProviderStateMixin {
   late TabController tabviewController;
-
+  TextEditingController phoneNumberController = TextEditingController();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    tabviewController = TabController(length: 2, vsync: this);
+    tabviewController = TabController(length: 1, vsync: this);
   }
 
   @override
@@ -47,6 +47,7 @@ class CheckoutPageTabContainerScreenState
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
+                          height: 72.v,
                           width: 322.h,
                           margin: EdgeInsets.only(
                             left: 39.h,
@@ -76,85 +77,13 @@ class CheckoutPageTabContainerScreenState
                           ),
                         ),
                       ),
-                      SizedBox(height: 52.v),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 86.h,
-                          right: 91.h,
-                        ),
-                        decoration: AppDecoration.outlineBlack9004.copyWith(
-                          borderRadius: BorderRadiusStyle.roundedBorder8,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Your Contribution",
-                              style:
-                                  CustomTextStyles.titleMediumBluegray900Bold,
-                            ),
-                            SizedBox(height: 27.v),
-                            Container(
-                              height: 32.v,
-                              width: 251.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  8.h,
-                                ),
-                                border: Border.all(
-                                  color: theme.colorScheme.primary,
-                                  width: 1.h,
-                                ),
-                              ),
-                              child: TabBar(
-                                controller: tabviewController,
-                                labelPadding: EdgeInsets.zero,
-                                tabs: [
-                                  Tab(
-                                    child: SizedBox(
-                                      height: 32.v,
-                                      width: 129.h,
-                                      child: Stack(
-                                        alignment: Alignment.bottomCenter,
-                                        children: [
-                                          CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgRectangle6,
-                                            height: 32.v,
-                                            width: 129.h,
-                                            alignment: Alignment.center,
-                                          ),
-                                          Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Padding(
-                                              padding:
-                                                  EdgeInsets.only(bottom: 6.v),
-                                              child: Text(
-                                                "Kg",
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Tab(
-                                    child: Text(
-                                      "Number of meals",
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+
+
                       SizedBox(
                         height: 867.v,
                         child: TabBarView(
                           controller: tabviewController,
                           children: [
-                            CheckoutPageTwoPage(),
                             CheckoutPageTwoPage(),
                           ],
                         ),
@@ -171,7 +100,6 @@ class CheckoutPageTabContainerScreenState
     );
   }
 
-  /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       height: 94.v,
@@ -183,17 +111,17 @@ class CheckoutPageTabContainerScreenState
     );
   }
 
-  /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
-      onChanged: (BottomBarEnum type) {
+      onTap: (BottomBarEnum type) {
         Navigator.pushNamed(
-            navigatorKey.currentContext!, getCurrentRoute(type));
+          context,
+          getCurrentRoute(type),
+        );
       },
     );
   }
 
-  ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
@@ -209,7 +137,6 @@ class CheckoutPageTabContainerScreenState
     }
   }
 
-  ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.ngoOrderListPage:
