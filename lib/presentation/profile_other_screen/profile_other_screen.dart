@@ -26,7 +26,7 @@ class ProfileOtherScreen extends StatefulWidget {
 class _ProfileOtherScreenState extends State<ProfileOtherScreen> {
   bool ngoName = false;
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-
+  bool isFollowing = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -96,16 +96,24 @@ class _ProfileOtherScreenState extends State<ProfileOtherScreen> {
                           ])),
                       SizedBox(height: 47.v),
                       CustomOutlinedButton(
-                          text: "Follow ",
+                          text: isFollowing ? "Following" : "Follow",
                           margin: EdgeInsets.symmetric(horizontal: 13.h),
                           leftIcon: Container(
-                              margin: EdgeInsets.only(right: 17.h),
-                              child: CustomImageView(
-                                  imagePath: ImageConstant.imgUserplus,
-                                  height: 24.adaptSize,
-                                  width: 24.adaptSize)),
-                          buttonStyle: CustomButtonStyles.outlinePrimaryTL28,
-                          buttonTextStyle: CustomTextStyles.titleMediumPrimary,
+                            margin: EdgeInsets.only(right: isFollowing ? 11.h : 17.h),
+                            child: CustomImageView(
+                              imagePath: isFollowing
+                                  ? ImageConstant.imgUsercheck
+                                  : ImageConstant.imgUserplus,
+                              height: 24.adaptSize,
+                              width: 24.adaptSize,
+                            ),
+                          ),
+                          buttonStyle: isFollowing
+                              ? CustomButtonStyles.outlinePrimaryTL281
+                              : CustomButtonStyles.outlinePrimaryTL28,
+                          buttonTextStyle: isFollowing
+                              ? theme.textTheme.titleMedium!
+                              : CustomTextStyles.titleMediumPrimary,
                           onPressed: () {
                             onTapFollow(context);
                           },
@@ -242,6 +250,8 @@ class _ProfileOtherScreenState extends State<ProfileOtherScreen> {
 
   /// Navigates to the profileFollowedScreen when the action is triggered.
   onTapFollow(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.profileFollowedScreen);
+    setState(() {
+      isFollowing = !isFollowing;
+    });
   }
 }
