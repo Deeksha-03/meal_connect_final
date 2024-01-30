@@ -92,14 +92,14 @@ class _SelectLocationScreenState
           SizedBox(height: 40.v),
           _buildSelectLocationRow(
             context,
-            girinagarText: "Basavangudi",
+            girinagarText: "Basavanagudi",
             malleshwaramText: "Indiranagar",
           ),
           SizedBox(height: 40.v),
           _buildSelectLocationRow(
             context,
-            girinagarText: "JP nagar",
-            malleshwaramText: "Kormangala",
+            girinagarText: "JP Nagar",
+            malleshwaramText: "Koramangala",
           ),
           SizedBox(height: 40.v),
           _buildSelectLocationRow(

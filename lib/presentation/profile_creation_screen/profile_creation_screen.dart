@@ -9,49 +9,61 @@ import 'package:meal_connect/widgets/custom_outlined_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
-class ProfileCreationScreen extends StatelessWidget {
+class ProfileCreationScreen extends StatefulWidget {
   ProfileCreationScreen({Key? key}) : super(key: key);
 
+  @override
+  _ProfileCreationScreenState createState() => _ProfileCreationScreenState();
+}
+
+class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
   TextEditingController nameController = TextEditingController();
-
   TextEditingController rAOvalueController = TextEditingController();
-
   TextEditingController tellusaboutthestoryofacampaignController =
-      TextEditingController();
+  TextEditingController();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: _buildAppBar(context),
-            body: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                    padding: EdgeInsets.only(top: 30.v),
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            left: 35.h, right: 28.h, bottom: 5.v),
-                        child: Column(children: [
-                          _buildAddingPhoto(context),
-                          SizedBox(height: 66.v),
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text("Campaign Details",
-                                  style: CustomTextStyles
-                                      .titleMediumBluegray900_1)),
-                          SizedBox(height: 63.v),
-                          _buildTitle(context),
-                          SizedBox(height: 46.v),
-                          _buildCategory(context),
-                          SizedBox(height: 48.v),
-                          _buildStory(context),
-                          SizedBox(height: 91.v),
-                          _buildProfileCreation(context)
-                        ]))))));
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: _buildAppBar(context),
+        body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(top: 30.v),
+            child: Padding(
+              padding: EdgeInsets.only(left: 35.h, right: 28.h, bottom: 5.v),
+              child: Column(
+                children: [
+                  _buildAddingPhoto(context),
+                  SizedBox(height: 66.v),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Campaign Details",
+                      style: CustomTextStyles.titleMediumBluegray900_1,
+                    ),
+                  ),
+                  SizedBox(height: 63.v),
+                  _buildTitle(context),
+                  SizedBox(height: 46.v),
+                  _buildCategory(context),
+                  SizedBox(height: 48.v),
+                  _buildStory(context),
+                  SizedBox(height: 91.v),
+                  _buildProfileCreation(context),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
+
 
   /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {

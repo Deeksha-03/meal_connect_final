@@ -5,6 +5,7 @@ import 'package:meal_connect/widgets/app_bar/appbar_title.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_outlined_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectLocationScreen extends StatefulWidget {
   final String initialSelectedLocation = "";
@@ -91,14 +92,14 @@ class _SelectLocationScreenState
           SizedBox(height: 40.v),
           _buildSelectLocationRow(
             context,
-            girinagarText: "Basavangudi",
+            girinagarText: "Basavanagudi",
             malleshwaramText: "Indiranagar",
           ),
           SizedBox(height: 40.v),
           _buildSelectLocationRow(
             context,
-            girinagarText: "JP nagar",
-            malleshwaramText: "Kormangala",
+            girinagarText: "JP Nagar",
+            malleshwaramText: "Koramangala",
           ),
           SizedBox(height: 40.v),
           _buildSelectLocationRow(
@@ -194,12 +195,15 @@ class _SelectLocationScreenState
   }
 
   // Function to handle location selection
-  void _handleLocationSelection(String location) {
+  void _handleLocationSelection(String location) async{
     setState(() {
       selectedLocation = location;
     });
     print("Selected Location: $location");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('sel_loc', location);
   }
+
   onTapContinue(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
   }

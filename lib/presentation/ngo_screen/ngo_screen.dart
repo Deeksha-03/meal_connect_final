@@ -20,25 +20,61 @@ class _NgoScreenState extends State<NgoScreen> {
   FirebaseDatabase.instance.ref().child('verified_ngos');
 
   List<String> ngoNames = [];
+  String location = "";
 
   @override
   void initState() {
     super.initState();
+
     _fetchNgoNames();
   }
 
+  // Future<void> _fetchNgoNames() async {
+  //   try {
+  //     DataSnapshot snapshot = await _databaseReference.get();
+  //     dynamic data = snapshot.value;
+  //     print(data);
+  //
+  //     if (data != null && data is Map<dynamic, dynamic>) {
+  //       List<String> names = [];
+  //       data.forEach((key, value) {
+  //         if (value is Map<String, dynamic>) {
+  //           String name = value['name'] ?? '';
+  //           names.add(name);
+  //         }
+  //       });
+  //
+  //       setState(() {
+  //         ngoNames = names;
+  //       });
+  //       print(ngoNames);
+  //     }
+  //   } catch (error) {
+  //     print("Error fetching NGO names: $error");
+  //   }
+  // }
+
   Future<void> _fetchNgoNames() async {
+    print("called");
+    String? result = await fetchData();
+    print(result);
+
     try {
       DataSnapshot snapshot = await _databaseReference.get();
       dynamic data = snapshot.value;
-      print(data);
 
       if (data != null && data is Map<dynamic, dynamic>) {
         List<String> names = [];
         data.forEach((key, value) {
           if (value is Map<String, dynamic>) {
             String name = value['name'] ?? '';
-            names.add(name);
+            String ngoLocation = value['area'] ?? '';
+
+            // Check if the NGO's location matches the selected location
+            print(location);
+            if (result != null && ngoLocation.toLowerCase() == result.toLowerCase()) {
+              names.add(name);
+            }
           }
         });
 
@@ -52,12 +88,14 @@ class _NgoScreenState extends State<NgoScreen> {
     }
   }
 
-  void fetchData() async {
+  Future<String?> fetchData() async {
+    print("called2");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userName = prefs.getString('user_email');
-    String? location = prefs.getString('selected_location');
+    String? location = prefs.getString('selected_location') ?? "";
     print(userName);
     print(location);
+    return location;
   }
 
   @override

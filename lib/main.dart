@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
 
 
 
-          initialRoute: AppRoutes.forgotPasswordScreen,
+          initialRoute: AppRoutes.selectLocationSelectedScreen,
 
           routes: AppRoutes.routes,
         );

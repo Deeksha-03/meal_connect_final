@@ -172,6 +172,8 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('reg_no', registrationnumberController.text.trim());
             prefs.setString('ngo_name', nameController.text.trim());
+            String? regNo = prefs.getString('reg_no');
+            print(regNo);
 
             // User registration successful
             // Store additional user information in Firestore
