@@ -31,7 +31,11 @@ class MyApp extends StatelessWidget {
 
 
 
-          initialRoute: AppRoutes.ngoVerificationPageScreen,
+
+          initialRoute: AppRoutes.startPageOneScreen,
+
+
+
 
           routes: AppRoutes.routes,
         );

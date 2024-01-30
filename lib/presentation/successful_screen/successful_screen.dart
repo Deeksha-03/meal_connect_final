@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,12 +30,12 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
           child: Column(
             children: [
               Spacer(flex: 35),
-              CustomImageView(
-                imagePath: ImageConstant.imgGroup2180,
+
+              CustomSvgImageView(
+                svgPath: 'assets/images/img_group_2180.svg', // Adjust the path
                 height: 188.v,
                 width: 194.h,
                 alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 62.h),
               ),
               SizedBox(height: 24.v),
               Text("Verified", style: theme.textTheme.headlineLarge),
@@ -63,10 +64,39 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
       ),
     );
   }
-  /// Navigates to the homePageExtendedOneScreen when the action is triggered.
+
   onTapContinue(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.profileCreationFilledScreen);
 
 
+  }
+}
+
+class CustomSvgImageView extends StatelessWidget {
+  final String svgPath;
+  final double height;
+  final double width;
+  final Alignment alignment;
+  final EdgeInsetsGeometry margin;
+
+  const CustomSvgImageView({
+    required this.svgPath,
+    required this.height,
+    required this.width,
+    this.alignment = Alignment.center,
+    this.margin = EdgeInsets.zero,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin,
+      child: SvgPicture.asset(
+        svgPath,
+        height: height,
+        width: width,
+        alignment: alignment,
+      ),
+    );
   }
 }
