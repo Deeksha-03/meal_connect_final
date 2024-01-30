@@ -11,6 +11,8 @@ import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../widgets/custom_outlined_button.dart';
+
 class NotificationsNoNotiScreen extends StatefulWidget {
   NotificationsNoNotiScreen({Key? key}) : super(key: key);
 
@@ -18,54 +20,6 @@ class NotificationsNoNotiScreen extends StatefulWidget {
   _NotificationsNoNotiScreenState createState() =>
       _NotificationsNoNotiScreenState();
 }
-
-
-void fetchData() async{
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? regNo = prefs.getString('reg_no');
-  String? ngoName = prefs.getString('ngo_name');
-  print(regNo);
-  print(ngoName);
-
-  DatabaseReference reference = FirebaseDatabase.instance.ref();
-  Query query = reference.child('verified_ngos').orderByChild('registrationNumber').equalTo(regNo);
-
-  print(query);
-  DatabaseEvent event = await query.once();
-  if (event.snapshot.value != null) {
-    Map<String, dynamic> ngoData = event.snapshot.value as Map<String, dynamic>;
-
-    //Map<String, dynamic> ngoData = event.snapshot.value as Map<String, dynamic>;
-
-    print(ngoData);
-    if (ngoData.isNotEmpty) {
-      // Iterate through the Map to find the key that represents "Order"
-      String orderKey = ngoData.keys.firstWhere((key) {
-        Map<String, dynamic> childData = ngoData[key] as Map<String, dynamic>;
-        return childData.containsKey('Order');
-      }, orElse: () => '');
-
-      if (orderKey.isNotEmpty) {
-        // Extract "Order" details using the found key
-        Map<String, dynamic> orderData =
-        (ngoData[orderKey] as Map<String, dynamic>)['Order'];
-
-        // Display order details on the screen or process them as needed
-        String orderAddress = orderData['addredd'];
-        print("Order Address: $orderAddress");
-
-        // Update your UI or use the orderData as needed
-        // For example, if you have a Text widget, you can do:
-        // myTextWidget.text = orderAddress;
-      } else {
-        print('No "Order" found in the database for this NGO.');
-      }
-    } else {
-      print('NGO not found in the database.');
-    }
-  }
-}
-
 
 
 class _NotificationsNoNotiScreenState extends State<NotificationsNoNotiScreen> {
@@ -77,6 +31,70 @@ class _NotificationsNoNotiScreenState extends State<NotificationsNoNotiScreen> {
     super.initState();
     fetchData(); // Call your fetchData function when the screen initializes.
   }
+  String orderId = '';
+  String address = '';
+  String contributor = '';
+  String date = '';
+  String meals = '';
+  String phno = '';
+  String ngoName = '';
+  String time = '';
+  int orderLength = 0;
+
+  void fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? regNo = prefs.getString('reg_no');
+    String? ngo_name = prefs.getString('ngo_name');
+    print(regNo);
+    print(ngo_name);
+
+    DatabaseReference reference = FirebaseDatabase.instance.ref();
+    Query query =
+    reference.child('Order').orderByChild('ngoName').equalTo(ngo_name);
+
+    DatabaseEvent event = await query.once();
+    print(event);
+
+    if (event.snapshot.value == null) {
+      if (mounted) {
+        setState(() {
+          orderLength = 0;
+        });
+      }
+    } else {
+      Map<String, dynamic> orderData =
+      event.snapshot.value as Map<String, dynamic>;
+
+      if (mounted) {
+        setState(() {
+          orderLength = orderData.length;
+          print("length");
+          print(orderLength);
+          orderData.forEach((key, value) {
+            orderId = key;
+            address = value['address'];
+            contributor = value['contributor'];
+            date = value['date'];
+            meals = value['meals'];
+            ngoName = value['ngoName'];
+            phno = value['phno'];
+            time = value['time'];
+
+            // Access the specific fields
+            print('Order ID: $orderId');
+            print('Address: $address');
+            print('Contributor: $contributor');
+            print('Date: $date');
+            print('Meals: $meals');
+            print('Ngo Name: $ngoName');
+            print('Phone Number: $phno');
+            print('Time: $time');
+          });
+        });
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,26 +104,97 @@ class _NotificationsNoNotiScreenState extends State<NotificationsNoNotiScreen> {
         body: Container(
           width: double.maxFinite,
           padding: EdgeInsets.only(top: 149.v),
-          child: Column(
-            children: [
-              CustomImageView(
-                imagePath: ImageConstant.imgGroup2180Primary,
-                height: 188.v,
-                width: 194.h,
-              ),
-              SizedBox(height: 44.v),
-              Text(
-                "You have no notification.",
-                style: CustomTextStyles.headlineSmallGray500,
-              ),
-              SizedBox(height: 5.v),
-            ],
-          ),
+          child: orderLength == 0
+              ? _buildNoNotificationWidget()
+              : _buildOrderDetailsWidget(),
         ),
         bottomNavigationBar: _buildBottomBar(context),
       ),
     );
   }
+
+  Widget _buildNoNotificationWidget() {
+    return Column(
+      children: [
+        CustomImageView(
+          imagePath: ImageConstant.imgGroup2180Primary,
+          height: 188.v,
+          width: 194.h,
+        ),
+        SizedBox(height: 44.v),
+        Text(
+          "You have no notification.",
+          style: CustomTextStyles.headlineSmallGray500,
+        ),
+        SizedBox(height: 5.v),
+      ],
+    );
+  }
+
+  Widget _buildOrderDetailsWidget() {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+        children: [
+          _buildText(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildText() {
+    return Container(
+      padding: EdgeInsets.all(8.0), // Adjust vertical padding as needed
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 1.0), // Border around the entire text container
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+        children: [
+          _buildTextItem('Order ID: $orderId'),
+          _buildTextItem('Address: $address'),
+          _buildTextItem('Contributor: $contributor'),
+          _buildTextItem('Date: $date'),
+          _buildTextItem('Meals: $meals'),
+          _buildTextItem('Phone Number: $phno'),
+          _buildTextItem('Time: $time'),
+          SizedBox(height: 16.0), // Add some space between text and button
+          _buildButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextItem(String text) {
+    return Text(
+      text,
+      style: TextStyle(color: Colors.black), // Set text color to black
+    );
+  }
+
+  Widget _buildButton() {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.black, width: 1.0)), // Top border for the button
+      ),
+      child: CustomOutlinedButton(
+        height: 34.v,
+        width: 120.h,
+        text: "Pending",
+        margin: EdgeInsets.only(left: 12.h, top: 5.v, bottom: 7.v),
+        buttonStyle: CustomButtonStyles.outlinePrimary,
+        onPressed: () async {
+          // Handle button click
+          await deleteOrder(); // Call the function to delete the order
+        },
+
+      ),
+    );
+  }
+
+
 
   /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
@@ -151,6 +240,20 @@ class _NotificationsNoNotiScreenState extends State<NotificationsNoNotiScreen> {
       },
     );
   }
+  Future<void> deleteOrder() async {
+    DatabaseReference reference = FirebaseDatabase.instance.ref();
+
+    // Assuming orderId is the unique identifier for the order you want to delete
+    await reference.child('Order').child(orderId).remove();
+
+    // Optionally, you can update the UI or perform any additional tasks after deletion
+    if (mounted) {
+      setState(() {
+        // Update the UI if needed
+        orderLength = 0; // Set orderLength to 0 to reflect the order deletion
+      });
+    }
+  }
 
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
@@ -158,11 +261,11 @@ class _NotificationsNoNotiScreenState extends State<NotificationsNoNotiScreen> {
       case BottomBarEnum.Explore:
         return AppRoutes.ngoOrderListScreen;
       case BottomBarEnum.Ngo:
-        return AppRoutes.profileOtherScreen;
+        return AppRoutes.profileOtherOneScreen;
       case BottomBarEnum.Notification:
         return AppRoutes.notificationsNoNotiScreen;
       case BottomBarEnum.Profile:
-        return AppRoutes.profileOtherScreen;
+        return AppRoutes.profileOtherOneScreen;
       default:
         return "/";
     }
@@ -171,12 +274,11 @@ class _NotificationsNoNotiScreenState extends State<NotificationsNoNotiScreen> {
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.ngoOrderListScreen:
-        return NgoOrderListScreen(); // Use the same screen for now, you might want to change it.
-      case AppRoutes.profileOtherScreen:
+        return NgoOrderListScreen();
+      case AppRoutes.profileOtherOneScreen:
         return ProfileOtherScreen();
       case AppRoutes.notificationsNoNotiScreen:
         return NotificationsNoNotiScreen();
-
       default:
         return DefaultWidget();
     }

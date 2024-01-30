@@ -288,11 +288,11 @@ class _NgoOrderListScreenState extends State<NgoOrderListScreen> {
       case BottomBarEnum.Explore:
         return AppRoutes.ngoOrderListScreen;
       case BottomBarEnum.Ngo:
-        return AppRoutes.profileOtherScreen;
+        return AppRoutes.profileOtherOneScreen;
       case BottomBarEnum.Notification:
         return AppRoutes.notificationsNoNotiScreen;
       case BottomBarEnum.Profile:
-        return AppRoutes.profileOtherScreen;
+        return AppRoutes.profileOtherOneScreen;
       default:
         return "/";
     }
@@ -302,7 +302,7 @@ class _NgoOrderListScreenState extends State<NgoOrderListScreen> {
     switch (currentRoute) {
       case AppRoutes.ngoOrderListScreen:
         return NgoOrderListScreen();
-      case AppRoutes.profileOtherScreen:
+      case AppRoutes.profileOtherOneScreen:
         return ProfileOtherScreen();
       case AppRoutes.notificationsNoNotiScreen:
         return NotificationsNoNotiScreen();

@@ -172,6 +172,7 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('reg_no', registrationnumberController.text.trim());
             prefs.setString('ngo_name', nameController.text.trim());
+            prefs.setString('user_email', emailController1.text.trim());
             String? regNo = prefs.getString('reg_no');
             print(regNo);
 
@@ -342,6 +343,8 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
    // Display an error message or take appropriate action
   }
  }
+ String area = "";
+
 
  Future<bool> verifyNgoDetails({
   required String name,
@@ -364,10 +367,12 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
    for (var entry in values) {
     if (entry is Map<dynamic, dynamic>) {
      //print("Database Entry: $entry");
-
+ setState(() {
+  area = entry['area'];
+ });
 
      print(
-         "Name Type: ${entry['ngo_name'].runtimeType}, Value: ${entry['ngo_name']}");
+         "Name Type: ${entry['ngo_name'].runtimeType}, Value: ${entry['ngo_name']}, Value: ${entry['area']}");
      print(
          "Registration Number Type: ${entry['registration_number'].runtimeType}, Value: ${entry['registration_number']}");
 
@@ -393,7 +398,7 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
   await newNgoRef.push().set({
    'name': nameController.text,
    'registrationNumber': registrationnumberController.text,
-
+   'area': area,
    //'donationExpiredDate': dateController.text,
   });
  }

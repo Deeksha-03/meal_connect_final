@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -40,7 +41,11 @@ class _SignInScreenState extends State<SignInScreen> {
  TextEditingController passwordController = TextEditingController();
  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
- @override
+  DatabaseReference _databaseReference =
+  FirebaseDatabase.instance.ref().child('verified_ngos');
+
+
+  @override
  Widget build(BuildContext context) {
   return SafeArea(
       child: Scaffold(
@@ -277,58 +282,107 @@ class _SignInScreenState extends State<SignInScreen> {
   void _handleSignIn(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
       try {
-        // Sign in with Firebase Auth
-
         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-
           email: johnController.text.trim(),
           password: passwordController.text.trim(),
         );
 
-
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('user_email', johnController.text.trim());
 
-        // Handle successful sign-in, e.g., navigate to welcome screen
         UserModel userData = await typeController.getUserData(userCredential.user?.email ?? '');
 
         if (userData != null) {
-          // Now you can access properties of userData, such as userData.email, userData.type, etc.
           String userType = userData.type;
-
-          // Navigate based on user type
+          String ngoName = userData.name;
+          prefs.setString('ngo_name', ngoName);
           if (userType == "ngo") {
-            Navigator.pushNamed(context, AppRoutes.ngoOrderListScreen);
-          } else if (userType == "contributer") {
+            // Fetch NGO name from Firestore using the email of the signed-in user
+            //String ngoName = await _fetchNgoNameFromFirestore(userCredential.user?.email ?? '');
+
+            if (ngoName.isNotEmpty) {
+              // Now you have the NGO name
+              print("NGO Name: $ngoName");
+              // You can use the ngoName as needed, for example, navigate to a specific screen
+              Navigator.pushNamed(context, AppRoutes.ngoOrderListScreen);
+            } else {
+              // Handle case where NGO name is not found
+              print("NGO Name not found");
+            }
+          } else if (userType == "contributor") {
             Navigator.pushNamed(context, AppRoutes.selectLocationSelectedScreen);
           } else {
             // Handle unknown user type
             print("Unknown user type");
           }
         } else {
-          // Handle the case when user data is not found
           print("User not found");
         }
       } on FirebaseAuthException catch (e) {
         // Handle FirebaseAuthException
-        if (e.code == 'user-not-found') {
-          // Handle case where user is not found
-          print("User not found");
-          // You can show a message or navigate to a specific screen
-        } else {
-          // Handle other FirebaseAuthExceptions
-          print("Failed to sign in: $e");
-          // You can display an error message to the user here.
-        }
+        print("Failed to sign in: $e");
       } catch (e) {
         // Handle other exceptions
         print("Error: $e");
-
-        // You can display an error message to the user here.
       }
     }
   }
 
+  Future<String> _fetchNgoNameFromFirestore(String userEmail) async {
+    String ngoName = "";
+
+    try {
+      // Assuming you have a collection named 'users' in Firestore
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('users').doc(userEmail).get();
+
+      if (userSnapshot.exists) {
+        // Check if the user type is 'ngo'
+        String userType = userSnapshot.get('type') ?? "";
+        if (userType.toLowerCase() == 'ngo') {
+          // Extracting NGO name from the document
+          ngoName = userSnapshot.get('name') ?? "";
+          print(ngoName);
+        }
+      }
+    } catch (error) {
+      print("Error fetching NGO name from Firestore: $error");
+    }
+
+    return ngoName;
+  }
+
+
+
+  // Future<void> _fetchNgoNames() async {
+  //   print("called");
+  //
+  //
+  //   try {
+  //     DataSnapshot snapshot = await _databaseReference.get();
+  //     dynamic data = snapshot.value;
+  //
+  //     if (data != null && data is Map<dynamic, dynamic>) {
+  //       List<String> names = [];
+  //       data.forEach((key, value) {
+  //         if (value is Map<String, dynamic>) {
+  //           String name = value['name'] ?? '';
+  //           String email = value['area'] ?? '';
+  //
+  //           // Check if the NGO's location matches the selected location
+  //
+  //           if () {
+  //             names.add(name);
+  //           }
+  //         }
+  //       });
+  //
+  //
+  //
+  //     }
+  //   } catch (error) {
+  //     print("Error fetching NGO names: $error");
+  //   }
+  // }
 
 
 
@@ -360,3 +414,4 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
 }
+
