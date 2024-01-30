@@ -1,4 +1,6 @@
 
+import 'dart:js';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
@@ -67,6 +69,7 @@ class ProfileUserScreen extends StatelessWidget {
                       margin: EdgeInsets.only(left: 27.h, right: 15.h),
                       onPressed: () {
                         signOut();
+                        onSignout(context);
                       }),
                 ])),
             bottomNavigationBar: _buildBottomBar(context)));
@@ -76,7 +79,10 @@ class ProfileUserScreen extends StatelessWidget {
     // Clear user login session when signing out
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('user_email');
+    prefs.remove('ngo_name_sel');
+    prefs.remove('selected_location');
     await FirebaseAuth.instance.signOut();
+
   }
 
   /// Section Widget
@@ -224,6 +230,10 @@ class ProfileUserScreen extends StatelessWidget {
   /// Navigates to the homePageExtendedScreen when the action is triggered.
   onTapView(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.homePageExtendedScreen);
+  }
+
+  onSignout(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.signInScreen);
   }
 }
 

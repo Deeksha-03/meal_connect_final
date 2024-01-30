@@ -16,11 +16,15 @@ import 'package:readmore/readmore.dart';
 
 
 // ignore_for_file: must_be_immutable
-class ProfileOtherScreen extends StatelessWidget {
+class ProfileOtherScreen extends StatefulWidget {
   ProfileOtherScreen({Key? key}) : super(key: key);
 
-  bool ngoName = false;
+  @override
+  _ProfileOtherScreenState createState() => _ProfileOtherScreenState();
+}
 
+class _ProfileOtherScreenState extends State<ProfileOtherScreen> {
+  bool ngoName = false;
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override
@@ -121,7 +125,12 @@ class ProfileOtherScreen extends StatelessWidget {
                                 height: 34.v,
                                 width: 120.h,
                                 text: "Connect",
-                                margin: EdgeInsets.only(left: 19.h))
+                                margin: EdgeInsets.only(left: 19.h),
+                              onPressed: () {
+                                onConnect(context);
+                              },
+                                )
+
                           ])),
                       SizedBox(height: 51.v),
                       Text("Our story",
@@ -225,6 +234,10 @@ class ProfileOtherScreen extends StatelessWidget {
   /// Navigates to the ngoScreen when the action is triggered.
   onTapUser(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.ngoScreen);
+  }
+  onConnect(BuildContext context){
+    print("Connect");
+    Navigator.pushNamed(context, AppRoutes.checkoutPageTabContainerScreen);
   }
 
   /// Navigates to the profileFollowedScreen when the action is triggered.

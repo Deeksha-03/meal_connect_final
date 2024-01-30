@@ -1,10 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../checkout_page_two_page/widgets/eightythree_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_text_form_field.dart';
+
 
 class CheckoutPageTwoPage extends StatefulWidget {
   const CheckoutPageTwoPage({Key? key}) : super(key: key);
@@ -13,9 +15,8 @@ class CheckoutPageTwoPage extends StatefulWidget {
   CheckoutPageTwoPageState createState() => CheckoutPageTwoPageState();
 }
 
-// ignore_for_file: must_be_immutable
 class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
-    with AutomaticKeepAliveClientMixin<CheckoutPageTwoPage>,TickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin<CheckoutPageTwoPage>, TickerProviderStateMixin {
   late TabController tabviewController;
   TextEditingController noOfMealsController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -24,10 +25,25 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
   TextEditingController addressController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late DatabaseReference dbRef;
+  String contributor = "";
+  String ngoSel = "";
+
+  void fetchData() async {
+    print("called2");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('user_email');
+    String? ngoName = prefs.getString('ngo_name_sel') ?? "";
+    print(userName);
+    print(ngoName);
+    contributor = userName!;
+    ngoSel = ngoName!;
+    //return ngoName;
+  }
 
   @override
   void initState(){
     super.initState();
+    fetchData();
     dbRef = FirebaseDatabase.instance.ref().child('Order');
     tabviewController = TabController(length: 1, vsync: this);
   }
@@ -228,6 +244,8 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
                   'time':timeController.text,
                   'phno':phoneNumberController.text,
                   'address':addressController.text,
+                  'ngoName': ngoSel,
+                  'contributor': contributor,
                 };
                 dbRef.push().set(order);
                 onTapDONATENOW(context);
@@ -238,6 +256,7 @@ class CheckoutPageTwoPageState extends State<CheckoutPageTwoPage>
 
   /// Navigates to the successfulTwoScreen when the action is triggered.
   onTapDONATENOW(BuildContext context) {
+    print("called");
     Navigator.pushNamed(context, AppRoutes.successfulTwoScreen);
   }
 }

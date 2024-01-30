@@ -155,6 +155,7 @@ class _NgoScreenState extends State<NgoScreen> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
+              saveSelectedNgo(ngoNames[index]);
               onTapUserProfile(context);
             },
             child: Container(
@@ -228,8 +229,12 @@ class _NgoScreenState extends State<NgoScreen> {
         return "/";
     }
   }
-
+  Future<void> saveSelectedNgo(String selectedNgo) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('ngo_name_sel', selectedNgo);
+  }
   onTapUserProfile(BuildContext context) {
+    print("called");
     Navigator.pushNamed(context, AppRoutes.profileOtherScreen);
   }
 }
