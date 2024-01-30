@@ -70,7 +70,7 @@ class SignInDisabledScreen extends StatelessWidget {
                                 height: 8.adaptSize,
                                 width: 8.adaptSize,
                                 margin:
-                                    EdgeInsets.only(top: 110.v, bottom: 5.v))
+                                EdgeInsets.only(top: 110.v, bottom: 5.v))
                           ]),
                       SizedBox(height: 9.v),
                       CustomImageView(
@@ -92,7 +92,7 @@ class SignInDisabledScreen extends StatelessWidget {
                                         style: theme.textTheme.titleSmall)),
                                 Padding(
                                     padding:
-                                        EdgeInsets.only(left: 3.h, bottom: 4.v),
+                                    EdgeInsets.only(left: 3.h, bottom: 4.v),
                                     child: Text("*",
                                         style: theme.textTheme.bodyMedium))
                               ]))),
@@ -158,7 +158,7 @@ class SignInDisabledScreen extends StatelessWidget {
             }),
         centerTitle: true,
         title:
-            AppbarTitleImage(imagePath: ImageConstant.imgVectorBlue60013x14));
+        AppbarTitleImage(imagePath: ImageConstant.imgVectorBlue60013x14));
   }
 
   /// Section Widget

@@ -13,6 +13,7 @@
           "package_name": "com.mealconnect.app"
         }
       },
+<<<<<<< HEAD
       "oauth_client": [
         {
           "client_id": "200963182888-uogc6e421f9cjofputa8unnhidv0q035.apps.googleusercontent.com",
@@ -20,6 +21,18 @@
           "android_info": {
             "package_name": "com.mealconnect.app",
             "certificate_hash": "5ebb35738c01fde80f68bcc894ef715668953379"
+=======
+<<<<<<< HEAD
+      "oauth_client": [],
+=======
+      "oauth_client": [
+        {
+          "client_id": "200963182888-e2aufojabpvtjrrd821eabht8j23vgkb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mealconnect.app",
+            "certificate_hash": "1759e4998724d83de6cee162fb1d509e2dad9609"
+>>>>>>> ngo-frontend
           }
         },
         {
@@ -27,6 +40,10 @@
           "client_type": 3
         }
       ],
+<<<<<<< HEAD
+=======
+>>>>>>> ngo-frontend
+>>>>>>> ngo-frontend
       "api_key": [
         {
           "current_key": "AIzaSyC2r5RebcJA2cu07AkTrR1-P7DUMc0I8G0"
@@ -34,6 +51,12 @@
       ],
       "services": {
         "appinvite_service": {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          "other_platform_oauth_client": []
+=======
+>>>>>>> ngo-frontend
           "other_platform_oauth_client": [
             {
               "client_id": "200963182888-i3f7eef2cut4di4v7601n34mavcgtbkl.apps.googleusercontent.com",
@@ -47,6 +70,10 @@
               }
             }
           ]
+<<<<<<< HEAD
+=======
+>>>>>>> ngo-frontend
+>>>>>>> ngo-frontend
         }
       }
     }

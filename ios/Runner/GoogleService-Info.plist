@@ -2,12 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> ngo-frontend
 	<key>CLIENT_ID</key>
 	<string>200963182888-c9egbbir07cke50ug3su8879j7l9fl7t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.200963182888-c9egbbir07cke50ug3su8879j7l9fl7t</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>200963182888-e2aufojabpvtjrrd821eabht8j23vgkb.apps.googleusercontent.com</string>
+<<<<<<< HEAD
+=======
+>>>>>>> ngo-frontend
+>>>>>>> ngo-frontend
 	<key>API_KEY</key>
 	<string>AIzaSyAONrLrLC5gLCGWVt7RlC2YBHcMIYI5ggE</string>
 	<key>GCM_SENDER_ID</key>
@@ -32,7 +41,15 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:200963182888:ios:422de5577d5ebff59c801d</string>
+<<<<<<< HEAD
 	<key>DATABASE_URL</key>
 	<string>https://meal-connect-7c7de-default-rtdb.firebaseio.com</string>
+=======
+<<<<<<< HEAD
+=======
+	<key>DATABASE_URL</key>
+	<string>https://meal-connect-7c7de-default-rtdb.firebaseio.com</string>
+>>>>>>> ngo-frontend
+>>>>>>> ngo-frontend
 </dict>
 </plist>

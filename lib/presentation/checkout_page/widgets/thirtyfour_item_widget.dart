@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meal_connect/core/app_export.dart';
 
 class ThirtyfourItemWidget extends StatelessWidget {
   const ThirtyfourItemWidget({Key? key}) : super(key: key);

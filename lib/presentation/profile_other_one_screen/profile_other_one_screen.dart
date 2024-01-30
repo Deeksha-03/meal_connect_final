@@ -9,6 +9,10 @@ import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 import 'package:meal_connect/widgets/custom_checkbox_button.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:readmore/readmore.dart';
+import 'package:meal_connect/routes/app_routes.dart';
+import '../ngo_order_list_screen/ngo_order_list_screen.dart';
+import '../notifications_no_noti_screen/notifications_no_noti_screen.dart';
+import '../profile_other_screen/profile_other_screen.dart';
 
 // ignore_for_file: must_be_immutable
 class ProfileOtherOneScreen extends StatelessWidget {
@@ -156,32 +160,40 @@ class ProfileOtherOneScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
-    return CustomBottomBar(onChanged: (BottomBarEnum type) {
-      Navigator.pushNamed(navigatorKey.currentContext!, getCurrentRoute(type));
-    });
+    return CustomBottomBar(
+      onTap: (BottomBarEnum type) {
+        Navigator.pushNamed(
+          context,
+          getCurrentRoute(type),
+        );
+      },
+    );
   }
 
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.ngoOrderListScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.profileOtherOneScreen;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationsNoNotiScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileOtherOneScreen;
       default:
         return "/";
     }
   }
 
-  ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.ngoOrderListPage:
-        return NgoOrderListPage();
+      case AppRoutes.ngoOrderListScreen:
+        return NgoOrderListScreen();
+      case AppRoutes.profileOtherOneScreen:
+        return ProfileOtherScreen();
+      case AppRoutes.notificationsNoNotiScreen:
+        return NotificationsNoNotiScreen();
       default:
         return DefaultWidget();
     }

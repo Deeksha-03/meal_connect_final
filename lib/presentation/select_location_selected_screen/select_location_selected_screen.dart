@@ -5,14 +5,27 @@ import 'package:meal_connect/widgets/app_bar/appbar_title.dart';
 import 'package:meal_connect/widgets/app_bar/custom_app_bar.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:meal_connect/widgets/custom_outlined_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SelectLocationSelectedScreen extends StatelessWidget {
-  const SelectLocationSelectedScreen({Key? key})
-      : super(
-          key: key,
-        );
+class SelectLocationSelectedScreen extends StatefulWidget {
+  final String initialSelectedLocation = "";
+  const SelectLocationSelectedScreen({Key? key}) : super(key: key);
 
   @override
+  _SelectLocationScreenState createState() =>
+      _SelectLocationScreenState();
+}
+
+class _SelectLocationScreenState
+    extends State<SelectLocationSelectedScreen> {
+  String selectedLocation = ""; // Track selected location
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the initial selected location
+    selectedLocation = widget.initialSelectedLocation;
+  }
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -40,6 +53,9 @@ class SelectLocationSelectedScreen extends StatelessWidget {
               CustomElevatedButton(
                 text: "Continue",
                 margin: EdgeInsets.symmetric(horizontal: 22.h),
+                onPressed: (){
+                  onTapContinue(context);
+                },
               ),
             ],
           ),
@@ -73,34 +89,17 @@ class SelectLocationSelectedScreen extends StatelessWidget {
       padding: EdgeInsets.only(left: 5.h),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: CustomElevatedButton(
-                  height: 80.v,
-                  text: "Basavangudi",
-                  margin: EdgeInsets.only(right: 21.h),
-                  buttonStyle: CustomButtonStyles.fillPrimaryTL10,
-                  buttonTextStyle: CustomTextStyles.titleMediumBold,
-                ),
-              ),
-              Expanded(
-                child: CustomOutlinedButton(
-                  height: 80.v,
-                  text: "Indiranagar",
-                  margin: EdgeInsets.only(left: 21.h),
-                  buttonStyle: CustomButtonStyles.outlinePrimaryTL10,
-                  buttonTextStyle: CustomTextStyles.titleMediumPrimaryBold16,
-                ),
-              ),
-            ],
+          SizedBox(height: 40.v),
+          _buildSelectLocationRow(
+            context,
+            girinagarText: "Basavanagudi",
+            malleshwaramText: "Indiranagar",
           ),
           SizedBox(height: 40.v),
           _buildSelectLocationRow(
             context,
-            girinagarText: "JP nagar",
-            malleshwaramText: "Kormangala",
+            girinagarText: "JP Nagar",
+            malleshwaramText: "Koramangala",
           ),
           SizedBox(height: 40.v),
           _buildSelectLocationRow(
@@ -115,63 +114,96 @@ class SelectLocationSelectedScreen extends StatelessWidget {
 
   /// Common widget
   Widget _buildSelectLocationRow(
-    BuildContext context, {
-    required String girinagarText,
-    required String malleshwaramText,
-  }) {
+      BuildContext context, {
+        required String girinagarText,
+        required String malleshwaramText,
+      }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          child: Container(
-            margin: EdgeInsets.only(right: 21.h),
-            padding: EdgeInsets.all(25.h),
-            decoration: AppDecoration.outlinePrimary.copyWith(
-              borderRadius: BorderRadiusStyle.roundedBorder12,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(height: 5.v),
-                Text(
-                  girinagarText,
-                  style: CustomTextStyles.titleMediumPrimaryBold16.copyWith(
-                    color: theme.colorScheme.primary,
+          child: GestureDetector(
+            onTap: () {
+              _handleLocationSelection(girinagarText);
+            },
+            child: Container(
+              margin: EdgeInsets.only(right: 21.h),
+              padding: EdgeInsets.all(25.h),
+              decoration: AppDecoration.outlinePrimary.copyWith(
+                borderRadius: BorderRadiusStyle.roundedBorder12,
+                color: selectedLocation == girinagarText
+                    ? theme.colorScheme.primary // Change color for selected location
+                    : null,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(height: 5.v),
+                  Text(
+                    girinagarText,
+                    style: CustomTextStyles.titleMediumPrimaryBold16.copyWith(
+                      color: selectedLocation == girinagarText
+                          ? Colors.white // Change text color for selected location
+                          : theme.colorScheme.primary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
         Expanded(
-          child: Container(
-            margin: EdgeInsets.only(left: 21.h),
-            padding: EdgeInsets.symmetric(
-              horizontal: 14.h,
-              vertical: 26.v,
-            ),
-            decoration: AppDecoration.outlinePrimary.copyWith(
-              borderRadius: BorderRadiusStyle.roundedBorder12,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 2.v),
-                Text(
-                  malleshwaramText,
-                  style: CustomTextStyles.titleMediumPrimaryBold16.copyWith(
-                    color: theme.colorScheme.primary,
+          child: GestureDetector(
+            onTap: () {
+              _handleLocationSelection(malleshwaramText);
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 21.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 14.h,
+                vertical: 26.v,
+              ),
+              decoration: AppDecoration.outlinePrimary.copyWith(
+                borderRadius: BorderRadiusStyle.roundedBorder12,
+                color: selectedLocation == malleshwaramText
+                    ? theme.colorScheme.primary // Change color for selected location
+                    : null,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 2.v),
+                  Text(
+                    malleshwaramText,
+                    style: CustomTextStyles.titleMediumPrimaryBold16.copyWith(
+                      color: selectedLocation == malleshwaramText
+                          ? Colors.white // Change text color for selected location
+                          : theme.colorScheme.primary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ],
     );
+  }
+
+  // Function to handle location selection
+  void _handleLocationSelection(String location) async{
+    setState(() {
+      selectedLocation = location;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('selected_location', location);
+    print("Selected Location: $location");
+  }
+  onTapContinue(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.userAndNgoWelcomeScreen);
   }
 }

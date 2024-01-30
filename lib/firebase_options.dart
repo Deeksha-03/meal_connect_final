@@ -17,16 +17,16 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+
+      return web;
+
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
         return ios;
+
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -36,11 +36,15 @@ class DefaultFirebaseOptions {
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
           'you can reconfigure this by running the FlutterFire CLI again.',
+
         );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
+
           'you can reconfigure this by running the FlutterFire CLI again.',
+
+
         );
       default:
         throw UnsupportedError(
@@ -49,13 +53,32 @@ class DefaultFirebaseOptions {
     }
   }
 
+
+  static const FirebaseOptions web = FirebaseOptions(
+
+    apiKey: 'AIzaSyCgjjQJDS4ny1HwfKV_rcLTLvjJ-Y-XBuE',
+    appId: '1:200963182888:web:80e1e390ee28c1479c801d',
+    messagingSenderId: '200963182888',
+    projectId: 'meal-connect-7c7de',
+    authDomain: 'meal-connect-7c7de.firebaseapp.com',
+
+    databaseURL: 'https://meal-connect-7c7de-default-rtdb.firebaseio.com',
+    storageBucket: 'meal-connect-7c7de.appspot.com',
+    measurementId: 'G-9BQ0QSHP9N',
+
+  );
+
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC2r5RebcJA2cu07AkTrR1-P7DUMc0I8G0',
     appId: '1:200963182888:android:48fca1a81bf788119c801d',
     messagingSenderId: '200963182888',
     projectId: 'meal-connect-7c7de',
+
+
     databaseURL: 'https://meal-connect-7c7de-default-rtdb.firebaseio.com',
     storageBucket: 'meal-connect-7c7de.appspot.com',
+
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -63,6 +86,7 @@ class DefaultFirebaseOptions {
     appId: '1:200963182888:ios:422de5577d5ebff59c801d',
     messagingSenderId: '200963182888',
     projectId: 'meal-connect-7c7de',
+
     databaseURL: 'https://meal-connect-7c7de-default-rtdb.firebaseio.com',
     storageBucket: 'meal-connect-7c7de.appspot.com',
     androidClientId: '200963182888-e2aufojabpvtjrrd821eabht8j23vgkb.apps.googleusercontent.com',

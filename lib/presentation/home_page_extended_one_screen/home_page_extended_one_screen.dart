@@ -1,3 +1,10 @@
+
+import 'package:meal_connect/presentation/ngo_screen/ngo_screen.dart';
+import 'package:meal_connect/presentation/notification_user/notification_user_screen.dart';
+import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
+import 'package:meal_connect/presentation/profile_user_screen/profile_user_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../home_page_extended_one_screen/widgets/widget1_item_widget.dart';
 import '../home_page_extended_one_screen/widgets/widget_item_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -18,6 +25,15 @@ class HomePageExtendedOneScreen extends StatelessWidget {
 
   int sliderIndex1 = 1;
 
+
+  void fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('user_email');
+    String? location = prefs.getString('selected_location');
+    print(userName);
+    print(location);
+  }
+
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override Widget build(BuildContext context) {
@@ -25,21 +41,30 @@ class HomePageExtendedOneScreen extends StatelessWidget {
         body: SizedBox(width: 429.h,
             child: Column(
                 children: [SizedBox(height: 25.v), _buildScrollView(context)])),
-        bottomNavigationBar: CustomBottomBar(onChanged: (BottomBarEnum type) {
-          Navigator.pushNamed(
-              navigatorKey.currentContext!, getCurrentRoute(type));
-        })));
+        bottomNavigationBar: CustomBottomBar(
+          onTap: (BottomBarEnum type) {
+            fetchData();
+            Navigator.pushNamed(
+              context,
+              getCurrentRoute(type),
+            );
+          },
+        )));
+
   }
 
   /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
+
     return CustomAppBar(height: 94.v,
+
         title: AppbarSubtitleOne(
             text: "MEAL\nCONNECT", margin: EdgeInsets.only(left: 38.h)));
   }
 
   /// Section Widget
   Widget _buildWatchTheImpact(BuildContext context) {
+
     return Container(padding: EdgeInsets.symmetric(horizontal: 7.h),
         child: Column(children: [
           Padding(padding: EdgeInsets.symmetric(horizontal: 29.h),
@@ -97,11 +122,13 @@ class HomePageExtendedOneScreen extends StatelessWidget {
                                               .labelLargeOnPrimaryContainer)
                                     ])))))
                       ])))
+
         ]));
   }
 
   /// Section Widget
   Widget _buildScrollView(BuildContext context) {
+
     return Expanded(child: SingleChildScrollView(child: Padding(
         padding: EdgeInsets.only(right: 1.h),
         child: Column(children: [
@@ -191,17 +218,21 @@ class HomePageExtendedOneScreen extends StatelessWidget {
                               Align(alignment: Alignment.bottomLeft,
                                   child: Padding(padding: EdgeInsets.only(
                                       left: 23.h, bottom: 4.v),
+
                                       child: Text(
                                           "Ensuring food for all the child...",
                                           style: CustomTextStyles
                                               .titleMediumBluegray900Bold_1))),
+
                               CustomImageView(imagePath: ImageConstant
                                   .imgImage502,
+
                                   height: 234.v,
                                   width: 352.h,
                                   radius: BorderRadius.circular(43.h),
                                   alignment: Alignment.center)
                             ])),
+
                     SizedBox(height: 15.v),
                     Container(margin: EdgeInsets.only(right: 3.h),
                         padding: EdgeInsets.symmetric(horizontal: 23.h),
@@ -290,10 +321,12 @@ class HomePageExtendedOneScreen extends StatelessWidget {
                                                                 .primary))))),
                                         Padding(padding: EdgeInsets.only(
                                             left: 24.h),
+
                                             child: Text("50%",
                                                 style: CustomTextStyles
                                                     .labelLargeExtraBold))
                                       ])),
+
                                   SizedBox(height: 20.v),
                                   Padding(padding: EdgeInsets.only(right: 11.h),
                                       child: _buildDonatorsCounter(
@@ -408,16 +441,20 @@ class HomePageExtendedOneScreen extends StatelessWidget {
         children: [
           Padding(padding: EdgeInsets.only(bottom: 1.v),
               child: RichText(text: TextSpan(children: [
+
                 TextSpan(
                     text: "300 ", style: CustomTextStyles.titleSmallPrimary),
                 TextSpan(
                     text: "Donators", style: CustomTextStyles.titleSmallGray500)
+
               ]), textAlign: TextAlign.left)),
           RichText(text: TextSpan(children: [
+
             TextSpan(text: "14 ", style: CustomTextStyles.titleSmallPrimary),
             TextSpan(text: "days", style: CustomTextStyles.titleSmallGray500),
             TextSpan(text: " "),
             TextSpan(text: "left", style: CustomTextStyles.titleSmallGray500)
+
           ]), textAlign: TextAlign.left)
         ]);
   }
@@ -477,13 +514,15 @@ class HomePageExtendedOneScreen extends StatelessWidget {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+
+        return AppRoutes.homePageExtendedOneScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.ngoScreen;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationUserScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileUserScreen;
+
       default:
         return "/";
     }
@@ -492,8 +531,16 @@ class HomePageExtendedOneScreen extends StatelessWidget {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.ngoOrderListPage:
-        return NgoOrderListPage();
+
+      case AppRoutes.homePageExtendedOneScreen:
+        return HomePageExtendedOneScreen();
+      case AppRoutes.ngoScreen:
+        return NgoScreen();
+      case AppRoutes.notificationUserScreen:
+        return NotificationUserScreen();
+      case AppRoutes.profileUserScreen:
+        return ProfileUserScreen();
+
       default:
         return DefaultWidget();
     }

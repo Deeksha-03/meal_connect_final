@@ -636,9 +636,11 @@ class HomePageExtendedScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
-      onChanged: (BottomBarEnum type) {
+      onTap: (BottomBarEnum type) {
         Navigator.pushNamed(
-            navigatorKey.currentContext!, getCurrentRoute(type));
+          context,
+          getCurrentRoute(type),
+        );
       },
     );
   }
@@ -791,13 +793,13 @@ class HomePageExtendedScreen extends StatelessWidget {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.homePageExtendedScreen;
       case BottomBarEnum.Ngo:
-        return "/";
+        return AppRoutes.ngoOrderListPage;
       case BottomBarEnum.Notification:
-        return "/";
+        return AppRoutes.notificationsNoNotiScreen;
       case BottomBarEnum.Profile:
-        return "/";
+        return AppRoutes.profileUserScreen;
       default:
         return "/";
     }

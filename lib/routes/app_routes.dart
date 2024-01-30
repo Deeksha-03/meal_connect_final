@@ -1,3 +1,5 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:meal_connect/presentation/start_page_one_screen/start_page_one_screen.dart';
 import 'package:meal_connect/presentation/startup_page_screen/startup_page_screen.dart';
@@ -38,6 +40,8 @@ import 'package:meal_connect/presentation/checkout_page_tab_container_screen/che
 import 'package:meal_connect/presentation/successful_two_screen/successful_two_screen.dart';
 import 'package:meal_connect/presentation/notifications_no_noti_screen/notifications_no_noti_screen.dart';
 import 'package:meal_connect/presentation/app_navigation_screen/app_navigation_screen.dart';
+import 'package:meal_connect/presentation/ngo_order_list_screen/ngo_order_list_screen.dart';
+import 'package:meal_connect/presentation/notification_user/notification_user_screen.dart';
 
 class AppRoutes {
   static const String startPageOneScreen = '/start_page_one_screen';
@@ -58,6 +62,8 @@ class AppRoutes {
   static const String profileOtherOneScreen = '/profile_other_one_screen';  //ngo-side profile
 
   static const String ngoOrderListPage = '/ngo_order_list_page';
+
+  static const String ngoOrderListScreen = '/ngo_order_list_screen';
 
   static const String ngoOrderListContainerScreen =
       '/ngo_order_list_container_screen';
@@ -134,6 +140,7 @@ class AppRoutes {
 
   static const String notificationsNoNotiScreen =
       '/notifications_no_noti_screen';
+  static const String notificationUserScreen = '/notification_user_screen';
 
   static const String appNavigationScreen = '/app_navigation_screen';
 
@@ -147,6 +154,7 @@ class AppRoutes {
     successfulOneScreen: (context) => SuccessfulOneScreen(),
     profileOtherOneScreen: (context) => ProfileOtherOneScreen(),
     ngoOrderListContainerScreen: (context) => NgoOrderListContainerScreen(),
+    ngoOrderListScreen: (context)=> NgoOrderListScreen(),
     welcomePageScreen: (context) => WelcomePageScreen(),
     welcomePageOneScreen: (context) => WelcomePageOneScreen(),
     signUpScreen: (context) => SignUpScreen(),
@@ -178,6 +186,7 @@ class AppRoutes {
         CheckoutPageTabContainerScreen(),
     successfulTwoScreen: (context) => SuccessfulTwoScreen(),
     notificationsNoNotiScreen: (context) => NotificationsNoNotiScreen(),
+    notificationUserScreen: (context) => NotificationUserScreen(),
     appNavigationScreen: (context) => AppNavigationScreen()
   };
 }

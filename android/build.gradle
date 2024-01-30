@@ -8,6 +8,16 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+<<<<<<< HEAD
+        classpath 'com.google.gms:google-services:4.3.10'
+=======
+<<<<<<< HEAD
+        classpath 'com.google.gms:google-services:4.4.0'
+=======
+        classpath 'com.google.gms:google-services:4.3.10'
+
+>>>>>>> ngo-frontend
+>>>>>>> ngo-frontend
     }
 }
 
@@ -29,3 +39,5 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+apply plugin: 'com.google.gms.google-services' version '4.4.0' apply false
