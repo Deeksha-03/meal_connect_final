@@ -309,7 +309,7 @@ class _SignInScreenState extends State<SignInScreen> {
               // Handle case where NGO name is not found
               print("NGO Name not found");
             }
-          } else if (userType == "contributor") {
+          } else if (userType == "contributer") {
             Navigator.pushNamed(context, AppRoutes.selectLocationSelectedScreen);
           } else {
             // Handle unknown user type

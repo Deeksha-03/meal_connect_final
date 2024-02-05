@@ -96,7 +96,7 @@ class ProfileUserScreen extends StatelessWidget {
               onTapUser(context);
             }),
         title:
-            AppbarTitle(text: "Profile", margin: EdgeInsets.only(left: 25.h)),
+        AppbarTitle(text: "Profile", margin: EdgeInsets.only(left: 25.h)),
         actions: [
           AppbarTrailingIconbutton(
               imagePath: ImageConstant.imgMoreVertical,
@@ -177,12 +177,12 @@ class ProfileUserScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
-     onTap: (BottomBarEnum type) {
-      Navigator.pushNamed(
-       context,
-       getCurrentRoute(type),
-      );
-     },
+      onTap: (BottomBarEnum type) {
+        Navigator.pushNamed(
+          context,
+          getCurrentRoute(type),
+        );
+      },
     );
   }
 
@@ -236,5 +236,4 @@ class ProfileUserScreen extends StatelessWidget {
     Navigator.pushNamed(context, AppRoutes.signInScreen);
   }
 }
-
 
