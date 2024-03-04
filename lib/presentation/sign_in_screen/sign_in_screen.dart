@@ -410,7 +410,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   /// Navigates to the welcomePageOneScreen when the action is triggered.
   onTapTxtDonthaveanaccount(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.signUpScreen);
+    Navigator.pushNamed(context, AppRoutes.welcomePageOneScreen);
   }
 
 }

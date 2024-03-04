@@ -10,20 +10,14 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-<<<<<<< HEAD
-        classpath 'com.google.gms:google-services:4.3.10'
-=======
-<<<<<<< HEAD
-        classpath 'com.google.gms:google-services:4.4.0'
-<<<<<<< HEAD
-=======
+
         classpath 'com.google.gms:google-services:4.3.10'
 
->>>>>>> ngo-frontend
->>>>>>> ngo-frontend
-=======
+//        classpath 'com.google.gms:google-services:4.4.0'
+//
+//        classpath 'com.google.gms:google-services:4.3.10'
 
->>>>>>> 9f1291772ab7bb4a9cf08d1d85d4822382cd578d
+
     }
 }
 
