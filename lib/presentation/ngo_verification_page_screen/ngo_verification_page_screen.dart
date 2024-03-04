@@ -337,7 +337,7 @@ class _NgoVerificationPageScreenState extends State<NgoVerificationPageScreen> {
   if (isVerified) {
    await saveNgoDetails();
 
-   Navigator.pushNamed(context, AppRoutes.successfulScreen);
+   Navigator.pushNamed(context, AppRoutes.successfulOneScreen);
   } else {
    print('NGO verification failed');
    // Display an error message or take appropriate action
