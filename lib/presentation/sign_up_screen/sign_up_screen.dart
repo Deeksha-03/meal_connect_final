@@ -13,21 +13,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
 
   final userRepo = Get.put(UserRepository());
 
-  Future <void> createUser(UserModel user) async{
+  Future<void> createUser(UserModel user) async {
     await userRepo.createUser(user);
   }
 }
-class SignUpScreen extends StatelessWidget{
-  SignUpScreen({Key? key})
-      : super(
-    key: key,
-  );
+
+class SignUpScreen extends StatefulWidget {
+  SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final signUpController = Get.put(SignUpController());
 
 
@@ -178,6 +183,8 @@ class SignUpScreen extends StatelessWidget{
                                   //   'password': passwordController.text,
                                   //   'type': typeController,
                                   // });
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('user_email', emailController1.text.trim());
                                   final user = UserModel(email: emailController1.text.trim(),
                                       name: emailController.text.trim(),
                                       password: passwordController.text.trim(),
@@ -220,10 +227,16 @@ class SignUpScreen extends StatelessWidget{
                                     style:
                                     CustomTextStyles.titleSmallBlack900_3,
                                   ),
-                                  TextSpan(
-                                    text: "Sign in",
-                                    style: CustomTextStyles
-                                        .titleSmallPrimaryBold_2,
+                                  WidgetSpan(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(context, '/sign_in_screen');
+                                      },
+                                      child: Text(
+                                        "Sign in",
+                                        style: CustomTextStyles.titleSmallPrimaryBold_2,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),

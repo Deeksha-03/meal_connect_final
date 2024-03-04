@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
 import 'package:meal_connect/presentation/ngo_order_list_page/ngo_order_list_page.dart';
@@ -10,16 +11,42 @@ import 'package:meal_connect/widgets/custom_checkbox_button.dart';
 import 'package:meal_connect/widgets/custom_elevated_button.dart';
 import 'package:readmore/readmore.dart';
 import 'package:meal_connect/routes/app_routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../ngo_order_list_screen/ngo_order_list_screen.dart';
 import '../notifications_no_noti_screen/notifications_no_noti_screen.dart';
 import '../profile_other_screen/profile_other_screen.dart';
-
+import '../../widgets/custom_elevated_button.dart';
 // ignore_for_file: must_be_immutable
-class ProfileOtherOneScreen extends StatelessWidget {
+class ProfileOtherOneScreen extends StatefulWidget {
   ProfileOtherOneScreen({Key? key}) : super(key: key);
 
+  @override
+  _ProfileOtherOneScreenState createState() => _ProfileOtherOneScreenState();
+}
+
+class _ProfileOtherOneScreenState extends State<ProfileOtherOneScreen> {
   bool ngoName = false;
 
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  String username = "";
+  String email = "";
+  void fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? regNo = prefs.getString('reg_no');
+    String? ngo_name = prefs.getString('ngo_name');
+    print(regNo);
+    print(ngo_name);
+    if (ngo_name != null) {
+      setState(() {
+        username = ngo_name;
+      });
+      print(username);
+    }
+  }
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override
@@ -119,9 +146,26 @@ class ProfileOtherOneScreen extends StatelessWidget {
                                   .bodyLargePlusJakartaSansBluegray900,
                               lessStyle: CustomTextStyles
                                   .bodyLargePlusJakartaSansBluegray900)),
-                      SizedBox(height: 5.v)
+                      SizedBox(height: 65.v),
+                      CustomElevatedButton(
+                          text: "Sign Out",
+                          margin: EdgeInsets.only(left: 27.h, right: 15.h),
+                          onPressed: () {
+                            signOut();
+                            onSignout(context);
+                          }),
                     ])),
             bottomNavigationBar: _buildBottomBar(context)));
+  }
+
+  Future<void> signOut() async {
+    // Clear user login session when signing out
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.remove('user_email');
+    // prefs.remove('ngo_name_sel');
+    // prefs.remove('selected_location');
+    await FirebaseAuth.instance.signOut();
+
   }
 
   /// Section Widget
@@ -202,5 +246,8 @@ class ProfileOtherOneScreen extends StatelessWidget {
   /// Navigates to the ngoOrderListContainerScreen when the action is triggered.
   onTapUser(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.ngoOrderListContainerScreen);
+  }
+  onSignout(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.signInScreen);
   }
 }

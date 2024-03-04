@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
 
 
 
-          initialRoute: AppRoutes.profileOtherScreen,
+          initialRoute: AppRoutes.startPageOneScreen,
+
 
 
 

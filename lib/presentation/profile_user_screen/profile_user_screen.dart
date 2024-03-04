@@ -1,6 +1,7 @@
 
 import 'dart:js';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_connect/core/app_export.dart';
@@ -24,11 +25,39 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/custom_elevated_button.dart';
 
 // ignore_for_file: must_be_immutable
-class ProfileUserScreen extends StatelessWidget {
+class ProfileUserScreen extends StatefulWidget {
   ProfileUserScreen({Key? key}) : super(key: key);
 
-  bool userName = false;
+  @override
+  _ProfileUserScreenState createState() => _ProfileUserScreenState();
+}
 
+class _ProfileUserScreenState extends State<ProfileUserScreen> {
+  bool userName = false;
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  String username = "";
+  String email = "";
+
+  void fetchData() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('user_email');
+    String? location = prefs.getString('selected_location');
+    //print(userName);
+    print(location);
+    if (userName != null) {
+      setState(() {
+        email = userName;
+      });
+      print(email);
+    }
+
+  }
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override
@@ -96,7 +125,7 @@ class ProfileUserScreen extends StatelessWidget {
               onTapUser(context);
             }),
         title:
-            AppbarTitle(text: "Profile", margin: EdgeInsets.only(left: 25.h)),
+        AppbarTitle(text: "Profile", margin: EdgeInsets.only(left: 25.h)),
         actions: [
           AppbarTrailingIconbutton(
               imagePath: ImageConstant.imgMoreVertical,
@@ -113,7 +142,7 @@ class ProfileUserScreen extends StatelessWidget {
             child: CustomCheckboxButton(
                 alignment: Alignment.centerRight,
                 width: 129.h,
-                text: "User Name",
+                text: "User Profile",
                 value: userName,
                 isRightCheck: true,
                 onChange: (value) {
@@ -146,43 +175,62 @@ class ProfileUserScreen extends StatelessWidget {
   }
 
   /// Section Widget
+  /// Section Widget
   Widget _buildView(BuildContext context) {
     return SizedBox(
-        height: 43.v,
-        width: 347.h,
-        child: Stack(alignment: Alignment.bottomLeft, children: [
+      height: 43.v,
+      width: 347.h,
+      child: Stack(
+        alignment: Alignment.bottomLeft,
+        children: [
           Align(
-              alignment: Alignment.center,
-              child: GestureDetector(
-                  onTap: () {
-                    onTapView(context);
-                  },
-                  child: Container(
-                      height: 43.v,
-                      width: 347.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14.h),
-                          border: Border.all(
-                              color: theme.colorScheme.primary, width: 1.h))))),
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () {
+                onTapView(context);
+              },
+              child: Container(
+                height: 43.v,
+                width: 347.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14.h),
+                  border: Border.all(
+                    color: theme.colorScheme.primary,
+                    width: 1.h,
+                  ),
+                ),
+              ),
+            ),
+          ),
           Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                  padding: EdgeInsets.only(left: 13.h),
-                  child: Text("Email:  rohit@gmail.com",
-                      style: CustomTextStyles
-                          .headlineMediumPlusJakartaSansPrimarySemiBold)))
-        ]));
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 13.h),
+              child: SingleChildScrollView( // Wrap the Text with SingleChildScrollView
+                scrollDirection: Axis.horizontal, // Set the scroll direction to horizontal
+                child: Text(
+                  "Email:  $email",
+                  style: CustomTextStyles.headlineMediumPlusJakartaSansPrimarySemiBold,
+                  softWrap: true,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
+
 
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
-     onTap: (BottomBarEnum type) {
-      Navigator.pushNamed(
-       context,
-       getCurrentRoute(type),
-      );
-     },
+      onTap: (BottomBarEnum type) {
+        Navigator.pushNamed(
+          context,
+          getCurrentRoute(type),
+        );
+      },
     );
   }
 
@@ -236,5 +284,4 @@ class ProfileUserScreen extends StatelessWidget {
     Navigator.pushNamed(context, AppRoutes.signInScreen);
   }
 }
-
 

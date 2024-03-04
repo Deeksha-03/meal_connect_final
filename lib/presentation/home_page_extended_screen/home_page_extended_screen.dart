@@ -1,3 +1,4 @@
+import '../home_page_extended_one_screen/home_page_extended_one_screen.dart';
 import '../home_page_extended_screen/widgets/widget2_item_widget.dart';
 import '../home_page_extended_screen/widgets/widget3_item_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -10,6 +11,10 @@ import 'package:meal_connect/widgets/custom_bottom_bar.dart';
 import 'package:meal_connect/widgets/custom_icon_button.dart';
 import 'package:meal_connect/widgets/custom_outlined_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../ngo_screen/ngo_screen.dart';
+import '../notification_user/notification_user_screen.dart';
+import '../profile_user_screen/profile_user_screen.dart';
 
 class HomePageExtendedScreen extends StatelessWidget {
   HomePageExtendedScreen({Key? key})
@@ -793,13 +798,15 @@ class HomePageExtendedScreen extends StatelessWidget {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Explore:
-        return AppRoutes.homePageExtendedScreen;
+
+        return AppRoutes.homePageExtendedOneScreen;
       case BottomBarEnum.Ngo:
-        return AppRoutes.ngoOrderListPage;
+        return AppRoutes.ngoScreen;
       case BottomBarEnum.Notification:
-        return AppRoutes.notificationsNoNotiScreen;
+        return AppRoutes.notificationUserScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileUserScreen;
+
       default:
         return "/";
     }
@@ -808,8 +815,16 @@ class HomePageExtendedScreen extends StatelessWidget {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.ngoOrderListPage:
-        return NgoOrderListPage();
+
+      case AppRoutes.homePageExtendedOneScreen:
+        return HomePageExtendedOneScreen();
+      case AppRoutes.ngoScreen:
+        return NgoScreen();
+      case AppRoutes.notificationUserScreen:
+        return NotificationUserScreen();
+      case AppRoutes.profileUserScreen:
+        return ProfileUserScreen();
+
       default:
         return DefaultWidget();
     }

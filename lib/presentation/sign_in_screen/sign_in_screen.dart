@@ -309,7 +309,7 @@ class _SignInScreenState extends State<SignInScreen> {
               // Handle case where NGO name is not found
               print("NGO Name not found");
             }
-          } else if (userType == "contributor") {
+          } else if (userType == "contributer") {
             Navigator.pushNamed(context, AppRoutes.selectLocationSelectedScreen);
           } else {
             // Handle unknown user type
@@ -410,7 +410,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   /// Navigates to the welcomePageOneScreen when the action is triggered.
   onTapTxtDonthaveanaccount(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.signUpScreen);
+    Navigator.pushNamed(context, AppRoutes.welcomePageOneScreen);
   }
 
 }

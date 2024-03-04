@@ -80,6 +80,6 @@ class WelcomePageScreen extends StatelessWidget {
 
   /// Navigates to the signInDisabledScreen when the action is triggered.
   onTapTxtAlreadyhavean(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.signInDisabledScreen);
+    Navigator.pushNamed(context, AppRoutes.signInScreen);
   }
 }

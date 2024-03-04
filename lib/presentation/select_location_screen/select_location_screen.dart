@@ -201,7 +201,7 @@ class _SelectLocationScreenState
     });
     print("Selected Location: $location");
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('sel_loc', location);
+    prefs.setString('selected_location', location);
   }
 
   onTapContinue(BuildContext context) {
